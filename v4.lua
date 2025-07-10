@@ -29,7 +29,7 @@ local function getretrostudiover()
 	if PlrScripts:FindFirstChild("_RetroStudio") then
 		for i, v in ipairs(PlrScripts:GetDescendants()) do
 			if v:IsA("Folder") and tostring(v) == "2013" then
-				return "2013E"
+				return "2013"
 			end
 		end
 	end
