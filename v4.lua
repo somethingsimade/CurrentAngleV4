@@ -7,3 +7,18 @@
   Removing or modifying this notice may violate copyright law.
 ]]
 --// BY MrY7zz
+
+local supportedplaces = {
+  ["1818"] = true, --// CrossRoads
+  ["5846386835"] = true, --// RetroStudio
+}
+
+local supportedplace = true
+local supportedplaceid = nil
+
+for k, v in pairs(supportedplaces) do
+   if k == tostring(game.PlaceId) then
+      supportedplace = true
+      supportedplaceid = tostring(game.PlaceId)
+  end
+end
