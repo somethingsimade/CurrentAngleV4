@@ -12,6 +12,7 @@ local supportedplaces = {
   ["1818"] = true, --// CrossRoads
   ["5846386835"] = true, --// RetroStudio
   ["654732683"] = true, --// Car Crushers 2
+  ["6884319169"] = true, --// MIC UP
 }
 
 local supportedplace = true
@@ -44,3 +45,9 @@ if supportedplace and supportedplaceid == "654732683" then
   loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/CC2.lua"))()
   return
 end
+
+if supportedplace and supportedplaceid == "6884319169" then
+  loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/MIC_UP.lua"))()
+  return
+end
+
