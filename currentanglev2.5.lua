@@ -275,7 +275,7 @@ local Destroy = dummypart.Destroy
 local math_random = math.random
 local Vector3_new = Vector3.new
 
-local usedefaultanims = _G["Use default animations"] or false
+local usedefaultanims = _G["Use default animations"]
 
 local transparency_level = _G["Fake character transparency level"] or 1
 
@@ -632,6 +632,6 @@ finished = true
 
 if usedefaultanims then
 task_spawn(function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV2/refs/heads/main/anims"))
+loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV2/refs/heads/main/anims"))()
 end)
 end
