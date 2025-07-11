@@ -15,7 +15,7 @@ local supportedplaces = {
   ["6884319169"] = true, --// MIC UP
 }
 
-local supportedplace = true
+local supportedplace = false
 local supportedplaceid = nil
 
 for k, v in pairs(supportedplaces) do
@@ -35,6 +35,11 @@ local function getretrostudiover()
 			end
 		end
 	end
+end
+
+if not supportedplace then
+	loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/gamefallback.lua"))()
+	return
 end
 
 if supportedplace and supportedplaceid == "5846386835" then
