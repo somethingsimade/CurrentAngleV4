@@ -275,7 +275,7 @@ local Destroy = dummypart.Destroy
 local math_random = math.random
 local Vector3_new = Vector3.new
 
-local usedefaultanims = _G["Use default animations"]
+local usedefaultanims = _G["Use default animations"] or false
 
 local transparency_level = _G["Fake character transparency level"] or 1
 
