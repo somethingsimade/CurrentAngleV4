@@ -19,3 +19,6 @@ if not game.IsLoaded then
 end
 loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/v4.lua"))()
 ```
+
+# How to use?
+Just enter a game, our script will automatically detect if the game you are in is supported, and execute the respective version. If the game is not in the list, it will prompt you to run the semi-universal version.
