@@ -27,3 +27,63 @@ Just enter a game, our script will automatically detect if the game you are in i
 ### 1. Retro Studio (soon)
 ### 2. Car Crushers 2 (R6 only)
 ### 1. Mic Up (R15 only)
+
+# Older version (currentangle v2)
+```lua
+-- SETTINGS --
+local settings = _G
+
+settings["Use default animations"] = true
+settings["Fake character transparency level"] = 1 -- 0 to disable
+settings["Disable character scripts"] = true
+settings["Fake character should collide"] = true
+settings["Parent real character to fake character"] = false
+settings["Respawn character"] = true --[[ only should be disabled if
+your character havent played ANY animations, otherwise it breaks the reanimate ]]
+settings["Instant respawn"] = false --[[ Instant respawns the
+character, it will still wait the respawn time, but your character wont be dead.
+Requires: replicatesignal function
+Enable if you want the feature
+]]
+settings["Hide HumanoidRootPart"] = false --[[ Enabled by default. when enabled, your chat bubble or name tag
+will not appear above your character, but you will have your character immortal in the Fencing arena.
+]]
+settings["PermaDeath fake character"] = true --[[When enabled, when you die when the reanimate is on, you
+wont respawn. If you want respawn, set it to false
+]]
+settings["R15 Reanimate"] = false --[[When enabled, your character when reanimated will be R15.
+So you can run r15 scripts. This does not make the reanimate itself work with R15.
+]]
+settings["Click Fling"] = false --[[When enabled, will attempt to fling a player
+when you click its character.]]
+
+settings["Hide RootPart Distance"] = CFrame.new(255, 255, 0) --[[Change the numbers, higher the number,
+further away therootpart will hide (when Hide HumanoidRootPart is ON)
+If you wanted to it to be at 1000, 1000, 100 you set it to CFrame.new(1000, 1000, 100)
+]]
+
+settings["Names to exclude from transparency"] = {
+    --[[ example:
+    ["HumanoidRootPart"] = true,
+    ["Left Arm"] = true
+    ]]
+}
+(function() if getgenv then return getgenv() else return _G end end)().fling = nil
+local finished = false
+
+task.spawn(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/currentanglev2.5.lua"))()
+end)
+
+repeat task.wait() until finished
+
+-- USAGE: getgenv().fling(character, time, yield) if you dont have getgenv: _G.fling(character, time, yield)
+-- or just fling(character, time, yield)
+
+-- time is for how much time in seconds it will fling
+-- the character
+
+-- yield is if the fling function will yield
+
+-- you can put your converted script under here
+```
