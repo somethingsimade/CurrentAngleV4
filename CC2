@@ -1,0 +1,151 @@
+ --[[
+  Licensed under the MIT License (see LICENSE file for full details).
+  Copyright (c) 2025 MrY7zz
+
+  LEGAL NOTICE:
+  You are REQUIRED to retain this license header under the terms of the MIT License.
+  Removing or modifying this notice may violate copyright law.
+]]
+--// BY MrY7zz
+local newIndex
+local Index
+
+--// Extracting __newindex
+xpcall(function()
+	game[{}] = {}
+end, function()
+	newIndex = debug.info(2, "f")
+end)
+
+--// Extracting __index
+xpcall(function()
+	return game[{}]
+end, function()
+	Index = debug.info(2, "f")
+end)
+
+local game = game
+local debug = debug
+local debug_info = debug.info
+
+local gameIndex
+local gameNewIndex
+
+local getrawmetatableworks = false
+local isindexsupported = false
+
+if getrawmetatable then
+	local s, r = pcall(getrawmetatable, game)
+	if s then  
+		if r.__index then
+			gameIndex = r.__index
+			gameNewIndex = r.__newindex
+			getrawmetatableworks = true
+		end
+	end
+end
+
+if not getrawmetatableworks then
+	xpcall(function()
+		return game[{}]
+	end, function()
+		gameIndex = debug_info(2, "f")
+	end)
+
+	xpcall(function()
+		game[{}] = {}
+	end, function()
+		gameNewIndex = debug_info(2, "f")
+	end)
+end
+
+local successtest, err = pcall(function()
+	return gameIndex(game:GetService("Workspace"), "Parent")
+end)
+
+if not successtest then
+	if string.find(err:lower(), "instance expected") then
+		isindexsupported = false
+	else
+		isindexsupported = true
+	end
+else
+	isindexsupported = true
+end
+
+if not gameIndex then
+	gameIndex = function(self, key)
+		return self[key]
+	end
+end
+
+if not gameNewIndex then
+	gameNewIndex = function(self, key, new)
+		self[key] = new
+	end
+end
+
+local plrchar = game:GetService("Players").LocalPlayer.Character
+plrchar.Archivable = true
+local clone = plrchar:Clone()
+plrchar.Archivable = false
+
+clone.Name = clone.Name .. "_Fake"
+
+clone.Parent = workspace
+
+game:GetService("Players").LocalPlayer.Character = clone
+game:GetService("ReplicatedStorage"):WaitForChild("rE"):WaitForChild("Player"):WaitForChild("Ragdoll"):WaitForChild("SetState"):FireServer(true)
+
+game:GetService("ReplicatedStorage"):WaitForChild("rE"):WaitForChild("Player"):WaitForChild("Ragdoll"):WaitForChild("SetState"):Destroy()
+
+local GetDescendants = game.GetDescendants
+
+game:GetService("RunService").Stepped:Connect(function()
+	for i, v in ipairs(GetDescendants(plrchar)) do
+		if v:isA("BasePart") then
+			gameNewIndex(v, "CanCollide", false)
+		end
+	end
+end)
+
+local task_wait = task.wait
+
+local realRootPart = plrchar["HumanoidRootPart"]
+local realHead = plrchar["Head"]
+local realTorso = plrchar["Torso"]
+local realRightArm = plrchar["Right Arm"]
+local realRightLeg = plrchar["Right Leg"]
+local realLeftArm = plrchar["Left Arm"]
+local realLeftLeg = plrchar["Left Leg"]
+
+local fakeRootPart = clone["HumanoidRootPart"]
+local fakeHead = clone["Head"]
+local fakeTorso = clone["Torso"]
+local fakeRightArm = clone["Right Arm"]
+local fakeRightLeg = clone["Right Leg"]
+local fakeLeftArm = clone["Left Arm"]
+local fakeLeftLeg = clone["Left Leg"]
+
+local vector3zero = Vector3.zero
+
+task.spawn(function()
+	while task_wait() do
+		gameNewIndex(realRootPart, "CFrame", gameIndex(fakeRootPart, "CFrame"))
+		
+		gameNewIndex(realRootPart, "Velocity", vector3zero)
+		gameNewIndex(realRootPart, "RotVelocity", vector3zero)
+
+		gameNewIndex(realHead, "CFrame", gameIndex(fakeHead, "CFrame"))
+		
+		gameNewIndex(realTorso, "CFrame", gameIndex(fakeTorso, "CFrame"))
+
+		gameNewIndex(realRightArm, "CFrame", gameIndex(fakeRightArm, "CFrame"))
+		
+		gameNewIndex(realLeftArm, "CFrame", gameIndex(fakeLeftArm, "CFrame"))
+
+		gameNewIndex(realRightLeg, "CFrame", gameIndex(fakeRightLeg, "CFrame"))
+		
+		gameNewIndex(realLeftLeg, "CFrame", gameIndex(fakeLeftLeg, "CFrame"))
+	end
+end)
