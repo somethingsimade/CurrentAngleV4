@@ -304,11 +304,12 @@ local Mouse = LocalPlayer:GetMouse()
 
 if not LocalPlayer.Character then
 	LocalPlayer.CharacterAdded:Wait()
-	twait(zeropointone)
-	if LocalPlayer.Character:FindFirstChildOfClass("Humanoid").RigType ~= Enum.HumanoidRigType.R6 then
-		error("Script is only compatible with R6 type rigs")
-		return
-	end
+end
+twait(zeropointone)
+
+if LocalPlayer.Character:FindFirstChildOfClass("Humanoid").RigType ~= Enum.HumanoidRigType.R6 then
+    error("Script is only compatible with R6 type rigs")
+    return
 end
 
 local function removeAnims(character)
