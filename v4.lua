@@ -11,6 +11,7 @@
 local supportedplaces = {
   ["1818"] = true, --// CrossRoads
   ["5846386835"] = true, --// RetroStudio
+  ["654732683"] = true, --// Car Crushers 2
 }
 
 local supportedplace = true
