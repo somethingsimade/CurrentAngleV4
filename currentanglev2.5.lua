@@ -299,6 +299,8 @@ local r15rig = (function() if _G["R15 Reanimate"] == nil then return false else 
 
 local clickfling = (function() if _G["Click Fling"] == nil then return false else return _G["Click Fling"] end end)()
 
+local poscache = (function() if _G["Hide RootPart Distance"] == nil then return CFrame.new(255, 255, 0) else return _G["Hide RootPart Distance"] end end)()
+
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 
@@ -454,8 +456,6 @@ local function RCA6dToCFrame(Motor6D, TargetPart, ReferencePart)
 	sethiddenproperty(Motor6D, 'ReplicateCurrentOffset6D', CFrameIndex(delta, "Position"))
 	sethiddenproperty(Motor6D, 'ReplicateCurrentAngle6D', newangle)
 end
-
-local poscache = CFrame.new(255, 255, 0)
 
 local task_spawn = task.spawn
 local function stepReanimate()
