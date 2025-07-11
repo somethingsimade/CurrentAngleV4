@@ -7,6 +7,83 @@
   Removing or modifying this notice may violate copyright law.
 ]]
 --// BY MrY7zz
+
+
+local UI = (gethui and gethui()) or (cloneref and cloneref(game:GetService("CoreGui"))) or (pcall(function() return game:GetService("CoreGui").Parent end) and game:GetService("CoreGui")) or game:GetService("Players").LocalPlayer:FindFirstChildOfClass("PlayerGui")
+
+local function LoadUi()
+	-- Gui to Lua
+	-- Version: 3.2
+
+	-- Instances:
+
+	local ScreenGui = Instance.new("ScreenGui")
+	local Frame = Instance.new("Frame")
+	local UICorner = Instance.new("UICorner")
+	local UIGradient = Instance.new("UIGradient")
+	local UIStroke = Instance.new("UIStroke")
+	local UIStroke_2 = Instance.new("UIStroke")
+	local UIStroke_3 = Instance.new("UIStroke")
+	local TextLabel = Instance.new("TextLabel")
+	local TextLabel_2 = Instance.new("TextLabel")
+	ScreenGui.IgnoreGuiInset = true
+
+	ScreenGui.Parent = UI
+	ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+
+	Frame.Parent = ScreenGui
+	Frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	Frame.BorderSizePixel = 0
+	Frame.Size = UDim2.new(0, 429, 0, 79)
+    Frame.Position = UDim2.new(0.5, -Frame.Size.X.Offset/2, 0.01, 0)
+	UIStroke.Parent = Frame
+
+	UIStroke_2.Color = Color3.fromRGB(65, 65, 65)
+	UIStroke_3.Color = Color3.fromRGB(65, 65, 65)
+
+	UICorner.Parent = Frame
+
+	UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(79, 173, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(85, 127, 179))}
+	UIGradient.Rotation = 40
+	UIGradient.Transparency = NumberSequence.new{NumberSequenceKeypoint.new(0.00, 0.00), NumberSequenceKeypoint.new(0.07, 0.13), NumberSequenceKeypoint.new(1.00, 0.00)}
+	UIGradient.Parent = Frame
+
+	UIStroke_3.Thickness = 0.7
+
+	TextLabel.Parent = Frame
+	TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.BackgroundTransparency = 1.000
+	TextLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TextLabel.BorderSizePixel = 0
+	TextLabel.Position = UDim2.new(0.265734255, 0, 0, 0)
+	TextLabel.Size = UDim2.new(0, 200, 0, 50)
+	TextLabel.Font = Enum.Font.BuilderSans
+	TextLabel.Text = "MrY7zz's CurrentAngle V4 REANIMATE BY MrY7zz"
+	TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel.TextSize = 20.000
+	UIStroke_2.Parent = TextLabel
+
+	TextLabel_2.Parent = Frame
+	TextLabel_2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_2.BackgroundTransparency = 1.000
+	TextLabel_2.BorderColor3 = Color3.fromRGB(0, 0, 0)
+	TextLabel_2.BorderSizePixel = 0
+	TextLabel_2.Position = UDim2.new(-0.08, 0, 0.367088616, 0)
+	TextLabel_2.Size = UDim2.new(0, 500, 0, 50)
+	TextLabel_2.Font = Enum.Font.BuilderSans
+	TextLabel_2.Text = "Version made for Car Crushers 2"
+	TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
+	TextLabel_2.TextSize = 28.000
+
+	UIStroke_3.Parent = TextLabel_2
+	task.delay(5, function()
+		ScreenGui:Destroy()
+	end)
+end
+
+LoadUi()
+
 local newIndex
 local Index
 
