@@ -36,11 +36,11 @@ local function getretrostudiover()
 	end
 end
 
-if supportedplace and supportedplaceid == 5846386835 then
+if supportedplace and supportedplaceid == "5846386835" then
   
 end
 
-if supportedplace and supportedplaceid == 654732683 then
+if supportedplace and supportedplaceid == "654732683" then
   loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/CC2.lua"))()
   return
 end
