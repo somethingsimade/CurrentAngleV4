@@ -13,6 +13,7 @@ local supportedplaces = {
   ["5846386835"] = true, --// RetroStudio
   ["654732683"] = true, --// Car Crushers 2
   ["6884319169"] = true, --// MIC UP
+  ["16991287194"] = true, --// something evil will happen
 }
 
 local supportedplace = false
@@ -37,22 +38,31 @@ local function getretrostudiover()
 	end
 end
 
+local function loadstr(str)
+	return loadstring(str)()
+end
+
 if not supportedplace then
-	loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/gamefallback.lua"))()
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/gamefallback.lua"))
 	return
 end
 
 if supportedplace and supportedplaceid == "5846386835" then
-  
+  --// SOON
 end
 
 if supportedplace and supportedplaceid == "654732683" then
-  loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/CC2.lua"))()
+  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/CC2.lua"))
   return
 end
 
 if supportedplace and supportedplaceid == "6884319169" then
-  loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/MIC_UP.lua"))()
+  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/MIC_UP.lua"))
+  return
+end
+
+if supportedplace and supportedplaceid == "16991287194" then
+  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/SEWH.lua"))
   return
 end
 
