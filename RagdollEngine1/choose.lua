@@ -8,6 +8,8 @@
 ]]
 --// BY MrY7zz
 
+local _version = 1
+
 local rig = loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/rigtypehandler.lua"))()
 
 local function loadragdoll(ver)
