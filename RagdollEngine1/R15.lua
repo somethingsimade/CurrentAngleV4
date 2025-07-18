@@ -74,7 +74,7 @@ local function LoadUi()
 	TextLabel_2.Position = UDim2.new(-0.08, 0, 0.367088616, 0)
 	TextLabel_2.Size = UDim2.new(0, 500, 0, 50)
 	TextLabel_2.Font = Enum.Font.BuilderSans
-	TextLabel_2.Text = "Version made for Mic Up"
+	TextLabel_2.Text = "Version made for Ragdoll Engine"
 	TextLabel_2.TextColor3 = Color3.fromRGB(255, 255, 255)
 	TextLabel_2.TextSize = 28.000
 
