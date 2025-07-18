@@ -1,7 +1,7 @@
 The official place where it will be hosted.
 
 # Why skip to v4 and not v3?
-Because v3 is an (unfunny) joke version.
+Because v3 was an (unfunny) joke version.
 
 # V4 Main and only original place:
 ```lua
