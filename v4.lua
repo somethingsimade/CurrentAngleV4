@@ -15,7 +15,7 @@ local supportedplaces = {
   ["6884319169"] = true, --// MIC UP
   ["16991287194"] = true, --// something evil will happen
   ["5683833663"] = true, --// Ragdoll Engine (i named it Ragdoll1 since i want to add multiple of the clones later too)
-  ["16647175522"] --// Advanced Euphoria Ragdoll
+  ["16647175522"] = true, --// Advanced Euphoria Ragdoll
 }
 
 local supportedplace = false
