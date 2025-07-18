@@ -68,7 +68,9 @@ Just enter a game, our script will automatically detect if the game you are in i
 # Games supported?
 ### 1. Retro Studio (soon)
 ### 2. Car Crushers 2 (R6 only)
-### 1. Mic Up (R15 only)
+### 3. Mic Up (R15 only)
+### 4. something evil will happen
+
 
 # Older version (currentangle v2)
 ```lua
