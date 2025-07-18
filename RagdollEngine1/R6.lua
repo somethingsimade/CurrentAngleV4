@@ -200,9 +200,12 @@ local newCharHumanoid = newChar["Humanoid"]
 newCharHumanoid:ChangeState(Enum.HumanoidStateType.Ragdoll)
 local newCharRoot = newChar["HumanoidRootPart"]
 
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RagdollState"):FireServer(true)
-
-game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RagdollState"):Destroy()
+if _version == 1 then
+	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RagdollState"):FireServer(true)
+	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RagdollState"):Destroy()
+else
+	game:GetService("ReplicatedStorage"):WaitForChild("Assets"):WaitForChild("Remotes"):WaitForChild("Ragdoll"):FireServer(true)
+end
 
 local fakeChar = game:GetService("Players"):CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R6)
 fakeChar.Name = fakeChar.Name .. "_Fake"
