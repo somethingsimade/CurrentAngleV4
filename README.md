@@ -1,7 +1,7 @@
 The official place where it will be hosted.
 
 # Why skip to v4 and not v3?
-Because v3 is a fake version.
+Because v3 is an (unfunny) joke version.
 
 # V4 Main and only original place:
 ```lua
@@ -65,12 +65,14 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/Curre
 # How to use?
 Just enter a game, our script will automatically detect if the game you are in is supported, and execute the respective version. If the game is not in the list, it will prompt you to run the semi-universal version.
 
-# Games supported?
+# Games supported
 ### 1. Retro Studio (soon)
 ### 2. Car Crushers 2 (R6 only)
 ### 3. Mic Up (R15 only)
 ### 4. something evil will happen
 
+# Can't find your game in the list?
+Open an [issue](https://github.com/somethingsimade/CurrentAngleV4/issues) and request the game. Note that games that modify the character too much will be much harder to port, unless it contains a custom mechanic that allows limb movement (e.g ragdolling)
 
 # Older version (currentangle v2)
 ```lua
