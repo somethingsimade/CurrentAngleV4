@@ -16,6 +16,7 @@ local supportedplaces = {
   ["16991287194"] = true, --// something evil will happen
   ["5683833663"] = true, --// Ragdoll Engine (i named it Ragdoll1 since i want to add multiple of the clones later too)
   ["16647175522"] = true, --// Advanced Euphoria Ragdoll
+  ["112399477218954"] = true, --// Circuit Board
 }
 
 local supportedplace = false
@@ -78,3 +79,7 @@ if supportedplace and supportedplaceid == "16647175522" then
   return
 end
 
+if supportedplace and supportedplaceid == "112399477218954" then
+  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/CircuitBoard.lua"))
+  return
+end
