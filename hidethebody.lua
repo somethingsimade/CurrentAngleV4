@@ -1,5 +1,4 @@
-
- --[[
+--[[
   Licensed under the MIT License (see LICENSE file for full details).
   Copyright (c) 2025 MrY7zz
 
