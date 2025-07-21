@@ -215,7 +215,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("rE"):WaitForChild("Player"):W
 local GetDescendants = game.GetDescendants
 
 game:GetService("RunService").Stepped:Connect(function()
-	for i, v in ipairs(GetDescendants(plrchar)) do
+	for i, v in ipairs(plrchar:GetDescendants()) do
 		if v:isA("BasePart") then
 			gameNewIndex(v, "CanCollide", false)
 		end
@@ -266,7 +266,7 @@ end)
 local function disableCollisions()
 	pcall(function()
 		for _, char in ipairs({ clone }) do
-			for _, obj in ipairs(GetDescendants(char)) do
+			for _, obj in ipairs(char:GetDescendants()) do
 				if obj:IsA("BasePart") then
 					obj.CanCollide = false
 					obj.Massless = true
@@ -279,7 +279,7 @@ end
 local function disableCollisionsWithFakeChar()
 	pcall(function()
 		for _, char in ipairs({ plrchar, clone }) do
-			for _, obj in ipairs(GetDescendants(char)) do
+			for _, obj in ipairs(char:GetDescendants()) do
 				if obj:IsA("BasePart") then
 					obj.CanCollide = false
 					obj.Massless = true
