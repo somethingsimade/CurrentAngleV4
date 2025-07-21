@@ -37,7 +37,7 @@ local function LoadUi()
 	Frame.BorderColor3 = Color3.fromRGB(0, 0, 0)
 	Frame.BorderSizePixel = 0
 	Frame.Size = UDim2.new(0, 429, 0, 79)
-    Frame.Position = UDim2.new(0.5, -Frame.Size.X.Offset/2, 0.01, 0)
+	Frame.Position = UDim2.new(0.5, -Frame.Size.X.Offset/2, 0.01, 0)
 	UIStroke.Parent = Frame
 
 	UIStroke_2.Color = Color3.fromRGB(65, 65, 65)
@@ -84,6 +84,20 @@ local function LoadUi()
 end
 
 LoadUi()
+
+local usedefaultanims = _G["Use default animations"] or false
+local transparency_level = _G["Fake character transparency level"] or 1
+local disablescripts = _G["Disable character scripts"] or true
+local fakecollisions = _G["Fake character should collide"] or true
+local nametoexcludefromtransparency = _G["Names to exclude from transparency"] or {}
+local parentrealchartofakechar = _G["Parent real character to fake character"] or false
+--local respawncharacter = (function() if _G["Respawn character"] == nil then return true else return _G["Respawn character"] end end)()
+--local instantrespawn = (function() if _G["Instant respawn"] == nil then return false else return _G["Instant respawn"] end end)()
+local hiderootpart = (function() if _G["Hide HumanoidRootPart"] == nil then return false else return _G["Hide HumanoidRootPart"] end end)()
+local permadeathcharacter = (function() if _G["PermaDeath fake character"] == nil then return true else return _G["PermaDeath fake character"] end end)()
+--local r15rig = (function() if _G["R15 Reanimate"] == nil then return false else return _G["R15 Reanimate"] end end)()
+local clickfling = (function() if _G["Click Fling"] == nil then return false else return _G["Click Fling"] end end)()
+--local poscache = (function() if _G["Hide RootPart Distance"] == nil then return CFrame.new(255, 255, 0) else return _G["Hide RootPart Distance"] end end)()
 
 local newIndex
 local Index
@@ -166,6 +180,28 @@ end
 local plrchar = game:GetService("Players").LocalPlayer.Character
 plrchar.Archivable = true
 local clone = plrchar:Clone()
+
+if parentrealchartofakechar then
+	plrchar.Parent = clone
+end
+
+if disablescripts then
+	task.spawn(function()
+		for _, obj in ipairs(clone:GetChildren()) do
+			if obj:IsA("LocalScript") then
+				obj.Enabled = false
+			end
+		end
+	end)
+end
+
+for _, part in ipairs(clone:GetDescendants()) do
+	if part:IsA("BasePart") or part:IsA("Decal") then
+		if not nametoexcludefromtransparency[tostring(part)] then
+			part.Transparency = transparency_level
+		end
+	end
+end
 plrchar.Archivable = false
 
 clone.Name = clone.Name .. "_Fake"
@@ -214,23 +250,71 @@ local fakeLeftLeg = clone["Left Leg"]
 
 local vector3zero = Vector3.zero
 
-task.spawn(function()
-	while task_wait() do
-		gameNewIndex(realRootPart, "CFrame", gameIndex(fakeRootPart, "CFrame"))
-		
-		gameNewIndex(realRootPart, "Velocity", vector3zero)
-		gameNewIndex(realRootPart, "RotVelocity", vector3zero)
+game:GetService("RunService").RenderStepped:Connect(function()
+	gameNewIndex(realRootPart, "CFrame", gameIndex(fakeRootPart, "CFrame"))
 
-		gameNewIndex(realHead, "CFrame", gameIndex(fakeHead, "CFrame"))
-		
-		gameNewIndex(realTorso, "CFrame", gameIndex(fakeTorso, "CFrame"))
+	gameNewIndex(realRootPart, "Velocity", vector3zero)
+	gameNewIndex(realRootPart, "RotVelocity", vector3zero)
 
-		gameNewIndex(realRightArm, "CFrame", gameIndex(fakeRightArm, "CFrame"))
-		
-		gameNewIndex(realLeftArm, "CFrame", gameIndex(fakeLeftArm, "CFrame"))
+	gameNewIndex(realHead, "CFrame", gameIndex(fakeHead, "CFrame"))
 
-		gameNewIndex(realRightLeg, "CFrame", gameIndex(fakeRightLeg, "CFrame"))
-		
-		gameNewIndex(realLeftLeg, "CFrame", gameIndex(fakeLeftLeg, "CFrame"))
-	end
+	gameNewIndex(realTorso, "CFrame", gameIndex(fakeTorso, "CFrame"))
+
+	gameNewIndex(realRightArm, "CFrame", gameIndex(fakeRightArm, "CFrame"))
+
+	gameNewIndex(realLeftArm, "CFrame", gameIndex(fakeLeftArm, "CFrame"))
+
+	gameNewIndex(realRightLeg, "CFrame", gameIndex(fakeRightLeg, "CFrame"))
+
+	gameNewIndex(realLeftLeg, "CFrame", gameIndex(fakeLeftLeg, "CFrame"))
 end)
+
+local function disableCollisions()
+	pcall(function()
+		for _, char in ipairs({ plrchar }) do
+			for _, obj in ipairs(GetDescendants(char)) do
+				if obj:IsA("BasePart") then
+					obj.CanCollide = false
+					obj.Massless = true
+				end
+			end
+		end
+	end)
+end
+
+local function disableCollisionsWithFakeChar()
+	pcall(function()
+		for _, char in ipairs({ plrchar, clone }) do
+			for _, obj in ipairs(GetDescendants(char)) do
+				if obj:IsA("BasePart") then
+					obj.CanCollide = false
+					obj.Massless = true
+				end
+			end
+		end
+	end)
+end
+
+local RunService = game:GetService("RunService")
+
+if fakecollisions then
+	disableCollisionConnection = RunService.PreSimulation:Connect(disableCollisions)
+else
+	disableCollisionConnection = RunService.PreSimulation:Connect(disableCollisionsWithFakeChar)
+end
+
+if not permadeathcharacter then
+	clone.Humanoid.Died:Once(function()
+		disableCollisionConnection:Disconnect()
+
+		clone:Destroy()
+		game:GetService("Players").LocalPlayer.Character = clone
+		plrchar:BreakJoints()
+	end)
+end
+
+if usedefaultanims then
+	task.spawn(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV2/refs/heads/main/anims"))()
+	end)
+end
