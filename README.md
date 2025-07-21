@@ -60,6 +60,8 @@ Just enter a game, our script will automatically detect if the game you are in i
 ### 4. something evil will happen
 ### 5. Ragdoll Engine (Place Id 5683833663)
 ### 6. Advanced Euphoria Ragdoll
+### 7. Circuit Board (Place Id 112399477218954)
+### 8. Hide the body (Place Id 81239378558719)
 
 # Can't find your game in the list?
 Open an [issue](https://github.com/somethingsimade/CurrentAngleV4/issues) and request the game. Note that games that modify the character too much will be much harder to port, unless it contains a custom mechanic that allows limb movement (e.g ragdolling)
