@@ -86,6 +86,20 @@ end
 
 LoadUi()
 
+local usedefaultanims = _G["Use default animations"] or false
+local transparency_level = _G["Fake character transparency level"] or 1
+local disablescripts = _G["Disable character scripts"] or true
+local fakecollisions = _G["Fake character should collide"] or true
+local nametoexcludefromtransparency = _G["Names to exclude from transparency"] or {}
+local parentrealchartofakechar = _G["Parent real character to fake character"] or false
+--local respawncharacter = (function() if _G["Respawn character"] == nil then return true else return _G["Respawn character"] end end)()
+--local instantrespawn = (function() if _G["Instant respawn"] == nil then return false else return _G["Instant respawn"] end end)()
+local hiderootpart = (function() if _G["Hide HumanoidRootPart"] == nil then return false else return _G["Hide HumanoidRootPart"] end end)()
+local permadeathcharacter = (function() if _G["PermaDeath fake character"] == nil then return true else return _G["PermaDeath fake character"] end end)()
+--local r15rig = (function() if _G["R15 Reanimate"] == nil then return false else return _G["R15 Reanimate"] end end)()
+local clickfling = (function() if _G["Click Fling"] == nil then return false else return _G["Click Fling"] end end)()
+--local poscache = (function() if _G["Hide RootPart Distance"] == nil then return CFrame.new(255, 255, 0) else return _G["Hide RootPart Distance"] end end)()
+
 local newIndex
 local Index
 local Mul
@@ -205,6 +219,9 @@ game:GetService("ReplicatedStorage").Ragdoll:FireServer("Ball")
 local fakeChar = game:GetService("Players"):CreateHumanoidModelFromDescription(Instance.new("HumanoidDescription"), Enum.HumanoidRigType.R6)
 fakeChar.Name = fakeChar.Name .. "_Fake"
 fakeChar.Parent = workspace
+if parentrealchartofakechar then
+	newChar.Parent = fakeChar
+end
 
 local fakeCharTorso = fakeChar["Torso"]
 local fakeCharRoot = fakeChar["HumanoidRootPart"]
@@ -217,9 +234,21 @@ fakeHumanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
 plr.Character = fakeChar
 fakeChar.Parent = workspace
 
+if disablescripts then
+	task.spawn(function()
+		for _, obj in ipairs(fakeChar:GetChildren()) do
+			if obj:IsA("LocalScript") then
+				obj.Enabled = false
+			end
+		end
+	end)
+end
+
 for i, v in ipairs(getdescendants(fakeChar)) do
 	if isa(v, "Decal") or isa(v, "BasePart") then
-		gameNewIndex(v, "Transparency", 1)
+		if not nametoexcludefromtransparency[tostring(v)] then
+			gameNewIndex(v, "Transparency", transparency_level)
+		end
 	end
 end
 
@@ -287,5 +316,53 @@ game:GetService("RunService").Stepped:Connect(function()
 		end
 	end
 end)
+
+local function disableCollisions()
+	pcall(function()
+		for _, char in ipairs({ newChar }) do
+			for _, obj in ipairs(getdescendants(char)) do
+				if isa(obj, "BasePart") then
+					obj.CanCollide = false
+					obj.Massless = true
+				end
+			end
+		end
+	end)
+end
+
+local function disableCollisionsWithFakeChar()
+	pcall(function()
+		for _, char in ipairs({ newChar, fakeChar }) do
+			for _, obj in ipairs(getdescendants(char)) do
+				if isa(obj, "BasePart") then
+					obj.CanCollide = false
+					obj.Massless = true
+				end
+			end
+		end
+	end)
+end
+local RunService = game:GetService("RunService")
+if fakecollisions then
+	disableCollisionConnection = RunService.PreSimulation:Connect(disableCollisions)
+else
+	disableCollisionConnection = RunService.PreSimulation:Connect(disableCollisionsWithFakeChar)
+end
+
+if not permadeathcharacter then
+	fakeChar.Humanoid.Died:Once(function()
+		disableCollisionConnection:Disconnect()
+
+		fakeChar:Destroy()
+		game:GetService("Players").LocalPlayer.Character = newChar
+		newChar:BreakJoints()
+	end)
+end
+
+if usedefaultanims then
+	task.spawn(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV2/refs/heads/main/anims"))()
+	end)
+end
 
 --// Done.
