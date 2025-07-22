@@ -230,7 +230,7 @@ table.insert(modelsFake, HeadFake)
 for i, v in ipairs(modelsFake) do
 	for a, b in ipairs(v:GetDescendants()) do
 		if b:IsA("BasePart") or b:IsA("Decal") then
-			b.Transparency = 0
+			b.Transparency = 0.5--transparency_level
 			b.CanCollide = false
 		end
 	end
@@ -258,7 +258,7 @@ end
 for _, part in ipairs(clone:GetDescendants()) do
 	if part:IsA("BasePart") or part:IsA("Decal") then
 		if not nametoexcludefromtransparency[tostring(part)] then
-			part.Transparency = transparency_level
+			--part.Transparency = --transparency_level
 		end
 	end
 end
