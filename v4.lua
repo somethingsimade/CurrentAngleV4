@@ -21,6 +21,7 @@ local supportedplaces = {
   
   --// Whitelisted:
   ["12109643"] = true, --// Fencing (whitelisted)
+  ["6278451801"] = true, --// ALL glitch in roblox (whitelisted)
 }
 
 local supportedplace = false
@@ -93,7 +94,13 @@ if supportedplace and supportedplaceid == "81239378558719" then
   return
 end
 
+--// WHITELISTED BELOW
 if supportedplace and supportedplaceid == "12109643" then
+  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/currentanglev2.5.lua"))
+  return
+end
+
+if supportedplace and supportedplaceid == "6278451801" then
   loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/currentanglev2.5.lua"))
   return
 end
