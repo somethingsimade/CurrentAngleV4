@@ -230,7 +230,7 @@ table.insert(modelsFake, HeadFake)
 for i, v in ipairs(modelsFake) do
 	for a, b in ipairs(v:GetDescendants()) do
 		if b:IsA("BasePart") or b:IsA("Decal") then
-			b.Transparency = transparency_level
+			b.Transparency = 0
 			b.CanCollide = false
 		end
 	end
