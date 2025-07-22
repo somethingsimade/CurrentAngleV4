@@ -18,6 +18,9 @@ local supportedplaces = {
   ["16647175522"] = true, --// Advanced Euphoria Ragdoll
   ["112399477218954"] = true, --// Circuit Board
   ["81239378558719"] = true, --// Hide the body
+  
+  --// Whitelisted:
+  ["12109643"] = true, --// Fencing (whitelisted)
 }
 
 local supportedplace = false
@@ -87,5 +90,10 @@ end
 
 if supportedplace and supportedplaceid == "81239378558719" then
   loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/hidethebody.lua"))
+  return
+end
+
+if supportedplace and supportedplaceid == "12109643" then
+  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/currentanglev2.5.lua"))
   return
 end
