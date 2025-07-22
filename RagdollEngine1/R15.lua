@@ -1,11 +1,12 @@
 --[[
   Licensed under the MIT License (see LICENSE file for full details).
   Copyright (c) 2025 MrY7zz
-
+  
   LEGAL NOTICE:
   You are REQUIRED to retain this license header under the terms of the MIT License.
   Removing or modifying this notice may violate copyright law.
 ]]
+
 --// BY MrY7zz
 
 local getdescendants = game.GetDescendants
@@ -16,7 +17,6 @@ local UI = (gethui and gethui()) or (cloneref and cloneref(game:GetService("Core
 local function LoadUi()
 	-- Gui to Lua
 	-- Version: 3.2
-
 	-- Instances:
 
 	local ScreenGui = Instance.new("ScreenGui")
@@ -195,9 +195,13 @@ end
 local vector3zero = Vector3.zero
 
 local plr = game:GetService("Players").LocalPlayer
+
 local newChar = plr.Character
+
 local newCharHumanoid = newChar["Humanoid"]
+
 newCharHumanoid:ChangeState(Enum.HumanoidStateType.Ragdoll)
+
 local newCharRoot = newChar["HumanoidRootPart"]
 
 if _version == 1 then
@@ -266,10 +270,10 @@ local FootOffset = CFrame.new(0, -0.66, 0)
 local UpperTorsoOffset = CFrame.new(0, 0.2, 0)
 local LowerTorsoOffset = CFrame.new(0, -0.725, 0)
 
+
 game:GetService("RunService").Heartbeat:Connect(function()
 	gameNewIndex(LeftUpperArm, "CFrame", CFrameMul(gameIndex(LeftArm, "CFrame"), UpperArmOffset))
 	gameNewIndex(RightUpperArm, "CFrame", CFrameMul(gameIndex(RightArm, "CFrame"), UpperArmOffset))
-
 	gameNewIndex(LeftLowerArm, "CFrame", CFrameMul(gameIndex(LeftArm, "CFrame"), LowerArmOffset))
 	gameNewIndex(RightLowerArm, "CFrame", CFrameMul(gameIndex(RightArm, "CFrame"), LowerArmOffset))
 	gameNewIndex(LeftHand, "CFrame", CFrameMul(gameIndex(LeftArm, "CFrame"), HandOffset))
