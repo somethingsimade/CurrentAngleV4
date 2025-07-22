@@ -83,6 +83,20 @@ end
 
 LoadUi()
 
+local usedefaultanims = _G["Use default animations"] or false
+local transparency_level = _G["Fake character transparency level"] or 1
+local disablescripts = _G["Disable character scripts"] or true
+local fakecollisions = _G["Fake character should collide"] or true
+local nametoexcludefromtransparency = _G["Names to exclude from transparency"] or {}
+local parentrealchartofakechar = _G["Parent real character to fake character"] or false
+--local respawncharacter = (function() if _G["Respawn character"] == nil then return true else return _G["Respawn character"] end end)()
+--local instantrespawn = (function() if _G["Instant respawn"] == nil then return false else return _G["Instant respawn"] end end)()
+local hiderootpart = (function() if _G["Hide HumanoidRootPart"] == nil then return false else return _G["Hide HumanoidRootPart"] end end)()
+local permadeathcharacter = (function() if _G["PermaDeath fake character"] == nil then return true else return _G["PermaDeath fake character"] end end)()
+--local r15rig = (function() if _G["R15 Reanimate"] == nil then return false else return _G["R15 Reanimate"] end end)()
+local clickfling = (function() if _G["Click Fling"] == nil then return false else return _G["Click Fling"] end end)()
+--local poscache = (function() if _G["Hide RootPart Distance"] == nil then return CFrame.new(255, 255, 0) else return _G["Hide RootPart Distance"] end end)()
+
 local newIndex
 local Index
 local Mul
@@ -225,8 +239,32 @@ end
 local origpos = Character.HumanoidRootPart.CFrame
 
 local clone = Players:CreateHumanoidModelFromDescription(Character.Humanoid.HumanoidDescription, Enum.HumanoidRigType.R6)
-clone.HumanoidRootPart.CFrame = origpos
 clone.Parent = workspace
+
+if parentrealchartofakechar then
+	Character.Parent = clone
+end
+
+if disablescripts then
+	task.spawn(function()
+		for _, obj in ipairs(clone:GetChildren()) do
+			if obj:IsA("LocalScript") then
+				obj.Enabled = false
+			end
+		end
+	end)
+end
+
+for _, part in ipairs(clone:GetDescendants()) do
+	if part:IsA("BasePart") or part:IsA("Decal") then
+		if not nametoexcludefromtransparency[tostring(part)] then
+			part.Transparency = transparency_level
+		end
+	end
+end
+
+clone.HumanoidRootPart.CFrame = origpos
+
 
 workspace.CurrentCamera.CameraSubject = clone.Humanoid
 
@@ -263,13 +301,13 @@ local Vectorzero = vector.create(0, 0, 0)
 game:GetService("RunService").PreSimulation:Connect(function() --// Heard it is better
 	--// Left Arm
 	FireServer(movepart, Larm, Vectorzero, CFrameMul(gameIndex(LeftArm, "CFrame"), LeftArmOffset))
-	
+
 	--// Right Arm
 	FireServer(movepart, Rarm, Vectorzero, CFrameMul(gameIndex(RightArm, "CFrame"), RightArmOffset))
-	
+
 	--// Left Leg
 	FireServer(movepart, Lleg, Vectorzero, CFrameMul(gameIndex(LeftLeg, "CFrame"), LeftLegOffset))
-	
+
 	--// Right Leg
 	FireServer(movepart, Rleg, Vectorzero, CFrameMul(gameIndex(RightLeg, "CFrame"), RightLegOffset))
 
@@ -279,3 +317,53 @@ game:GetService("RunService").PreSimulation:Connect(function() --// Heard it is 
 	--// Head
 	FireServer(movepart, HeadFake, Vectorzero, CFrameMul(gameIndex(Head, "CFrame"), HeadOffset))
 end)
+
+local function disableCollisions()
+	pcall(function()
+		for _, char in ipairs({ Character }) do
+			for _, obj in ipairs(char:GetDescendants()) do
+				if obj:IsA("BasePart") then
+					obj.CanCollide = false
+					obj.Massless = true
+				end
+			end
+		end
+	end)
+end
+
+local function disableCollisionsWithFakeChar()
+	pcall(function()
+		for _, char in ipairs({ Character, clone }) do
+			for _, obj in ipairs(char:GetDescendants()) do
+				if obj:IsA("BasePart") then
+					obj.CanCollide = false
+					obj.Massless = true
+				end
+			end
+		end
+	end)
+end
+
+local RunService = game:GetService("RunService")
+
+if fakecollisions then
+	disableCollisionConnection = RunService.PreSimulation:Connect(disableCollisions)
+else
+	disableCollisionConnection = RunService.PreSimulation:Connect(disableCollisionsWithFakeChar)
+end
+
+if not permadeathcharacter then
+	clone.Humanoid.Died:Once(function()
+		disableCollisionConnection:Disconnect()
+
+		clone:Destroy()
+		game:GetService("Players").LocalPlayer.Character = clone
+		clone:BreakJoints()
+	end)
+end
+
+if usedefaultanims then
+	task.spawn(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV2/refs/heads/main/anims"))()
+	end)
+end
