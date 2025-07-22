@@ -22,7 +22,7 @@ end
 
 --// Check configdoc.md for settings documentation
 
---// Below are the settings for CurrentAngle v2 (fallback)
+--// Below are the settings
 -- SETTINGS --
 local settings = _G
 
