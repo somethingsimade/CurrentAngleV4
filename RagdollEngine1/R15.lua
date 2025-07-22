@@ -1,7 +1,7 @@
 --[[
   Licensed under the MIT License (see LICENSE file for full details).
   Copyright (c) 2025 MrY7zz
-  
+
   LEGAL NOTICE:
   You are REQUIRED to retain this license header under the terms of the MIT License.
   Removing or modifying this notice may violate copyright law.
@@ -85,6 +85,20 @@ local function LoadUi()
 end
 
 LoadUi()
+
+local usedefaultanims = _G["Use default animations"] or false
+local transparency_level = _G["Fake character transparency level"] or 1
+local disablescripts = _G["Disable character scripts"] or true
+local fakecollisions = _G["Fake character should collide"] or true
+local nametoexcludefromtransparency = _G["Names to exclude from transparency"] or {}
+local parentrealchartofakechar = _G["Parent real character to fake character"] or false
+--local respawncharacter = (function() if _G["Respawn character"] == nil then return true else return _G["Respawn character"] end end)()
+--local instantrespawn = (function() if _G["Instant respawn"] == nil then return false else return _G["Instant respawn"] end end)()
+local hiderootpart = (function() if _G["Hide HumanoidRootPart"] == nil then return false else return _G["Hide HumanoidRootPart"] end end)()
+local permadeathcharacter = (function() if _G["PermaDeath fake character"] == nil then return true else return _G["PermaDeath fake character"] end end)()
+--local r15rig = (function() if _G["R15 Reanimate"] == nil then return false else return _G["R15 Reanimate"] end end)()
+local clickfling = (function() if _G["Click Fling"] == nil then return false else return _G["Click Fling"] end end)()
+--local poscache = (function() if _G["Hide RootPart Distance"] == nil then return CFrame.new(255, 255, 0) else return _G["Hide RootPart Distance"] end end)()
 
 local newIndex
 local Index
@@ -215,6 +229,28 @@ local fakeChar = game:GetService("Players"):CreateHumanoidModelFromDescription(I
 fakeChar.Name = fakeChar.Name .. "_Fake"
 fakeChar.Parent = workspace
 
+if parentrealchartofakechar then
+	newChar.Parent = fakeChar
+end
+
+if disablescripts then
+	task.spawn(function()
+		for _, obj in ipairs(fakeChar:GetChildren()) do
+			if obj:IsA("LocalScript") then
+				obj.Enabled = false
+			end
+		end
+	end)
+end
+
+for _, part in ipairs(fakeChar:GetDescendants()) do
+	if part:IsA("BasePart") or part:IsA("Decal") then
+		if not nametoexcludefromtransparency[tostring(part)] then
+			part.Transparency = transparency_level
+		end
+	end
+end
+
 local fakeCharTorso = fakeChar["Torso"]
 local fakeCharRoot = fakeChar["HumanoidRootPart"]
 
@@ -298,5 +334,55 @@ game:GetService("RunService").Stepped:Connect(function()
 		end
 	end
 end)
+
+local function disableCollisions()
+	pcall(function()
+		for _, char in ipairs({ newChar }) do
+			for _, obj in ipairs(char:GetDescendants()) do
+				if obj:IsA("BasePart") then
+					obj.CanCollide = false
+					obj.Massless = true
+				end
+			end
+		end
+	end)
+end
+
+local function disableCollisionsWithFakeChar()
+	pcall(function()
+		for _, char in ipairs({ newChar, fakeChar }) do
+			for _, obj in ipairs(char:GetDescendants()) do
+				if obj:IsA("BasePart") then
+					obj.CanCollide = false
+					obj.Massless = true
+				end
+			end
+		end
+	end)
+end
+
+local RunService = game:GetService("RunService")
+
+if fakecollisions then
+	disableCollisionConnection = RunService.PreSimulation:Connect(disableCollisions)
+else
+	disableCollisionConnection = RunService.PreSimulation:Connect(disableCollisionsWithFakeChar)
+end
+
+if not permadeathcharacter then
+	fakeChar.Humanoid.Died:Once(function()
+		disableCollisionConnection:Disconnect()
+
+		fakeChar:Destroy()
+		game:GetService("Players").LocalPlayer.Character = newChar
+		newChar:BreakJoints()
+	end)
+end
+
+if usedefaultanims then
+	task.spawn(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV2/refs/heads/main/anims"))()
+	end)
+end
 
 --// Done.
