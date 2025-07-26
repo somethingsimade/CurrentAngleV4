@@ -276,6 +276,22 @@ for i, v in pairs(accs) do
 	drag:InvokeServer(v.Handle, true)
 end
 
+if not isnetworkowner then isnetworkowner = function() return true end end
+
+getgenv().fling = function(character)
+	if character then
+		if character:FindFirstChild("HumanoidRootPart") then
+			local fakeroot = character:FindFirstChild("HumanoidRootPart")
+			drag:InvokeServer(fakeroot, true)
+			repeat task.wait(0.2) until isnetworkowner(fakeroot) 
+			fakeroot.CFrame = CFrame.new(1000, 10000, 10000)
+				
+			fakeroot.Velocity = Vector3.new(1e9, 1e9, 1e9)
+			fakeroot.RotVelocity = Vector3.new(1e9, 1e9, 1e9)
+		end
+	end
+end
+
 local realhead = char.Head
 local realtorso = char.Torso
 local realrightarm = char["Right Arm"]
