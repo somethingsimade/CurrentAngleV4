@@ -1,6 +1,3 @@
-# Warning
-(For now) the settings will only apply to the fallback (CurrentAngle v2.5) and soon will be ported to all of the versions, including `fling`
-
 ### "Use default animations"
 When true, enables the default animations on the fake character
 
@@ -48,3 +45,8 @@ Table example:
     ["HumanoidRootPart"] = true,
     ["Left Arm"] = true
 }
+
+### "Mode for tool reanimate"
+2 Choices: (default is "RightShoulderDestroy")
+1. "RightShoulderDestroy"
+2. "PermaDeath"
