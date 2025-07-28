@@ -118,7 +118,7 @@ if supportedplace and supportedplaceid == "81239378558719" then
 	return
 end
 
-if supportedplace and supportedplaceid == "16389395869" then
+if supportedplace and supportedplaceid == "16389398622" then
 	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/adustytrip.lua"))
 	return
 end
