@@ -280,7 +280,8 @@ local RightLeg = clone["Right Leg"]
 local Torso = clone["Torso"]
 local Head = clone["Head"]
 
-Character.HumanoidRootPart.CFrame = CFrame.new(100000, 100000, 100000)
+
+Character.HumanoidRootPart.CFrame = CFrame.new(100, 100, 100)
 wait(0.1)
 Character.HumanoidRootPart.Anchored = true
 
