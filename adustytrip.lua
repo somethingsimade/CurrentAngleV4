@@ -214,6 +214,7 @@ local player = game.Players.LocalPlayer
 local newChar = player.Character
 newChar.Archivable = true
 local fakeChar = newChar:Clone()
+fakeChar.Name = fakeChar.Name .. "_Fake"
 fakeChar.Parent = workspace
 
 player.Character = fakeChar
