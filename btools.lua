@@ -98,7 +98,7 @@ realCharacter.HumanoidRootPart.Anchored = true
 
 if replicatesignal then
 	replicatesignal(lp.ConnectDiedSignalBackend)
-	wait(game.Players.RespawnTime + 0.65)
+	wait(game.Players.RespawnTime + 2.65)
 	replicatesignal(lp.Kill)
 end
 
