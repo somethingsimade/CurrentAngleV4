@@ -68,9 +68,9 @@ no.BorderSizePixel = 0
 no.Position = UDim2.new(0.533999979, -5, 0.56099999, 0)
 no.Size = UDim2.new(0, 200, 0, 50)
 no.Font = Enum.Font.BuilderSans
-no.Text = "No"
+no.Text = tostring(game:GetService("HttpService"):JSONDecode(game:HttpGetAsync("https://naas.isalman.dev/no")).reason) .. " (No)"
 no.TextColor3 = Color3.fromRGB(255, 255, 255)
-no.TextSize = 27.000
+no.TextScaled = true
 no.TextWrapped = true
 
 UICorner_2.Parent = no
@@ -92,7 +92,7 @@ UICorner_3.Parent = yes
 -- Scripts:
 
 local function SYBDR_fake_script() -- no.LocalScript 
-  no.MouseButton1Click:Connect(function()
+	no.MouseButton1Click:Connect(function()
 		ScreenGui:Destroy()
 	end)
 end
