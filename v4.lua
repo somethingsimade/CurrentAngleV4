@@ -68,9 +68,6 @@ local function getretrostudiover()
 end
 
 local function loadstr(str)
-	if not string.find(str, "https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/") then
-		while true do end
-	end
 	return loadstring(str)()
 end
 
