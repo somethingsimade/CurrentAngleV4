@@ -91,9 +91,18 @@ local lp = game:GetService("Players").LocalPlayer
 local realCharacter = lp.Character
 local pos = realCharacter.HumanoidRootPart.CFrame
 
-realCharacter.HumanoidRootPart.CFrame = CFrame.new(10000, 10000, 10000)
+task.wait(0.1)
+realCharacter.HumanoidRootPart.CFrame = CFrame.new(100, 1000, 100)
 task.wait(0.1)
 realCharacter.HumanoidRootPart.Anchored = true
+
+if replicatesignal then
+	replicatesignal(lp.ConnectDiedSignalBackend)
+	wait(game.Players.RespawnTime + 0.65)
+	replicatesignal(lp.Kill)
+end
+
+game:GetService("GuiService"):SetGameplayPausedNotificationEnabled(false)
 
 local char = game.Players:CreateHumanoidModelFromDescription(realCharacter.Humanoid.HumanoidDescription, Enum.HumanoidRigType.R6)
 char.Parent = workspace
