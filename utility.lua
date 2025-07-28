@@ -1,3 +1,4 @@
+local vector3zero = Vector3.zero
 
 local game = game
 local debug = debug
