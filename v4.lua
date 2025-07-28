@@ -9,29 +9,50 @@
 --// BY MrY7zz
 
 local supportedplaces = {
-  ["1818"] = true, --// CrossRoads
-  ["5846386835"] = true, --// RetroStudio
-  ["654732683"] = true, --// Car Crushers 2
-  ["6884319169"] = true, --// MIC UP
-  ["16991287194"] = true, --// something evil will happen
-  ["5683833663"] = true, --// Ragdoll Engine (i named it Ragdoll1 since i want to add multiple of the clones later too)
-  ["16647175522"] = true, --// Advanced Euphoria Ragdoll
-  ["112399477218954"] = true, --// Circuit Board
-  ["81239378558719"] = true, --// Hide the body
-  
-  --// Whitelisted:
-  ["12109643"] = true, --// Fencing (whitelisted)
-  ["6278451801"] = true, --// ALL glitch in roblox (whitelisted)
+	["5846386835"] = true, --// RetroStudio
+	["654732683"] = true, --// Car Crushers 2
+	["6884319169"] = true, --// MIC UP
+	["16991287194"] = true, --// something evil will happen
+	["5683833663"] = true, --// Ragdoll Engine (i named it Ragdoll1 since i want to add multiple of the clones later too)
+	["16647175522"] = true, --// Advanced Euphoria Ragdoll
+	["112399477218954"] = true, --// Circuit Board
+	["81239378558719"] = true, --// Hide the body
+	["16389395869"] = true, --// a dusty trip
+}
+
+local newgamesandwhitelisted = {
+	--//New Games//--
+	["1818"] = true, --// CrossRoads
+	["1335775256"] = true, --// PhotoshootX
+	["522527978"] = true, --// The Horror Mansion 
+	["340981354"] = true, --// Moderators are epical
+	["6690690837"] = true, --// Baer
+	["233727153"] = true, --// Piano Keyboard v1.1 ("might work i tested it like a lot")
+	["1662219031"] = true, --// Life in Paradies 
+	["6441847031"] = true, --// Chaos [Event] ("Might Work sometimes")
+	["17574618959"] = true, --// Just a Baseplate ("Might work but sometimes some people cant see the animation")
+	["4065093137"] = true, --// Eat Sand ("I added it because it works and why not ")
+
+	--// Whitelisted:
+	["12109643"] = true, --// Fencing (whitelisted)
+	["6278451801"] = true, --// ALL glitch in roblox (whitelisted)
 }
 
 local supportedplace = false
 local supportedplaceid = nil
 
 for k, v in pairs(supportedplaces) do
-   if k == tostring(game.PlaceId) then
-      supportedplace = true
-      supportedplaceid = tostring(game.PlaceId)
-  end
+	if k == tostring(game.PlaceId) then
+		supportedplace = true
+		supportedplaceid = tostring(game.PlaceId)
+	end
+end
+
+for k, v in pairs(newgamesandwhitelisted) do
+	if k == tostring(game.PlaceId) then
+		supportedplace = true
+		supportedplaceid = tostring(game.PlaceId)
+	end
 end
 
 local PlrScripts = game:GetService("StarterPlayer").StarterPlayerScripts
@@ -47,6 +68,9 @@ local function getretrostudiover()
 end
 
 local function loadstr(str)
+	if not string.find(str, "https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/") then
+		while true do end
+	end
 	return loadstring(str)()
 end
 
@@ -56,51 +80,52 @@ if not supportedplace then
 end
 
 if supportedplace and supportedplaceid == "5846386835" then
-  --// SOON
+	--// SOON
 end
 
 if supportedplace and supportedplaceid == "654732683" then
-  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/CC2.lua"))
-  return
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/CC2.lua"))
+	return
 end
 
 if supportedplace and supportedplaceid == "6884319169" then
-  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/MIC_UP.lua"))
-  return
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/MIC_UP.lua"))
+	return
 end
 
 if supportedplace and supportedplaceid == "16991287194" then
-  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/SEWH.lua"))
-  return
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/SEWH.lua"))
+	return
 end
 
 if supportedplace and supportedplaceid == "5683833663" then
-  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/RagdollEngine1/choose.lua"))
-  return
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/RagdollEngine1/choose.lua"))
+	return
 end
 
 if supportedplace and supportedplaceid == "16647175522" then
-  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/RagdollEngine1/choose2.lua"))
-  return
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/RagdollEngine1/choose2.lua"))
+	return
 end
 
 if supportedplace and supportedplaceid == "112399477218954" then
-  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/CircuitBoard.lua"))
-  return
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/CircuitBoard.lua"))
+	return
 end
 
 if supportedplace and supportedplaceid == "81239378558719" then
-  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/hidethebody.lua"))
-  return
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/hidethebody.lua"))
+	return
+end
+
+if supportedplace and supportedplaceid == "16389395869" then
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/adustytrip.lua"))
+	return
 end
 
 --// WHITELISTED BELOW
-if supportedplace and supportedplaceid == "12109643" then
-  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/currentanglev2.5.lua"))
-  return
-end
-
-if supportedplace and supportedplaceid == "6278451801" then
-  loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/currentanglev2.5.lua"))
-  return
+--//New Games That I Tested Newmrbot//--
+if supportedplace and newgamesandwhitelisted[supportedplaceid] then
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/currentanglev2.5.lua"))
+	return
 end
