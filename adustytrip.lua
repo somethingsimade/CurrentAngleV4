@@ -247,7 +247,8 @@ local fakeHead = fakeChar["Head"]
 local fakeTorso = fakeChar["Torso"]
 local fakeHumanoidRootPart = fakeChar["HumanoidRootPart"]
 
-game:GetService("RunService").RenderStepped:Connect(function()
+spawn(function()
+while task.wait() do
 	move(LeftArm, fakeLeftArm)
 	move(RightArm, fakeRightArm)
 	move(LefLeg, fakeLeftLeg)
@@ -256,8 +257,11 @@ game:GetService("RunService").RenderStepped:Connect(function()
 	move(Head, fakeHead)
 	move(Torso, fakeTorso)
 	move(HumanoidRootPart, fakeHumanoidRootPart)
-	--// player.Character = fakeChar
+
+end
+
 end)
+
 
 player.PlayerScripts:ClearAllChildren()
 workspace.CurrentCamera:Destroy()
