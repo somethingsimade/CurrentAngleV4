@@ -175,6 +175,8 @@ once = function(c)
 	while task.wait() do
 		if os.time() - ostime >= game.Players.RespawnTime + 0.65 then workspace.CurrentCamera.CameraSubject = cre.Humanoid
 			break end
+		c["HumanoidRootPart"].CFrame = start
+		
 		c["Torso"].CFrame = cre.Torso.CFrame
 		c["Head"].CFrame = cre.Head.CFrame
 		c["Left Arm"].CFrame = cre["Left Arm"].CFrame
@@ -194,8 +196,6 @@ once = function(c)
 		c["Left Leg"].RotVelocity = Vector3.new(0, 0, 0)
 		c["Right Leg"].Velocity = Vector3.new(0, 0, 0)
 		c["Right Leg"].RotVelocity = Vector3.new(0, 0, 0)
-
-		c["HumanoidRootPart"].CFrame = start
 	end
 end
 lp.CharacterAdded:Once(once)
