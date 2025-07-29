@@ -122,6 +122,7 @@ if supportedplace and supportedplaceid == "16389398622" then
 end
 
 if supportedplace and supportedplaceid == "9391468976" then
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/warn.lua"))
 	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/jujutsushenanigans.lua"))
 	return
 end
