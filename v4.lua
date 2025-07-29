@@ -18,6 +18,7 @@ local supportedplaces = {
 	["112399477218954"] = true, --// Circuit Board
 	["81239378558719"] = true, --// Hide the body
 	["16389395869"] = true, --// a dusty trip
+	["9391468976"] = true, --// Jujutsu Shenanigans
 }
 
 local newgamesandwhitelisted = {
@@ -117,6 +118,11 @@ end
 
 if supportedplace and supportedplaceid == "16389398622" then
 	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/adustytrip.lua"))
+	return
+end
+
+if supportedplace and supportedplaceid == "9391468976" then
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/jujutsushenanigans.lua"))
 	return
 end
 
