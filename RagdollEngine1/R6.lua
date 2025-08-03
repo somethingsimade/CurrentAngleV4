@@ -215,8 +215,8 @@ newCharHumanoid:ChangeState(Enum.HumanoidStateType.Ragdoll)
 local newCharRoot = newChar["HumanoidRootPart"]
 
 if _version == 1 then
-	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RagdollState"):FireServer(true)
-	game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("RagdollState"):Destroy()
+	game:GetService("ReplicatedStorage").Events.RagdollState:FireServer(true)
+	game:GetService("ReplicatedStorage").Events.RagdollState:Destroy()
 else
 	game:GetService("ReplicatedStorage"):WaitForChild("Assets"):WaitForChild("Remotes"):WaitForChild("Ragdoll"):FireServer(true)
 end
