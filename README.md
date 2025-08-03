@@ -16,7 +16,7 @@ Because v3 was an (unfunny) joke version.
   Removing or modifying this notice may violate copyright law.
 ]]
 --// BY MrY7zz
-if not game.IsLoaded then
+if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 
