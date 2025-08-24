@@ -8,7 +8,7 @@
 ]]
 --// BY MrY7zz
 
-if not game.IsLoaded then
+if not game:IsLoaded() then
 	game.Loaded:Wait()
 end
 
