@@ -343,10 +343,12 @@ LocalPlayer.Character.Archivable = true
 local originalChar = LocalPlayer.Character
 local fakeChar
 
+local fakecharcreate = loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/fakeCharHandler.lua"))
+
 if not r15rig then
-	fakeChar = originalChar:Clone()
+	fakeChar = fakecharcreate(originalChar, false, Enum.HumanoidRigType.R6) --originalChar:Clone()
 else
-	fakeChar = game:GetService("Players"):CreateHumanoidModelFromDescription(originalChar.Humanoid.HumanoidDescription, Enum.HumanoidRigType.R15)
+	fakeChar = fakecharcreate(originalChar, false, Enum.HumanoidRigType.R15)
 	fakeChar.HumanoidRootPart.CFrame = originalChar.HumanoidRootPart.CFrame
 end
 fakeChar.Name = LocalPlayer.Name .. "_Fake"
