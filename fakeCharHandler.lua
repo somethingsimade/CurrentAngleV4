@@ -1,4 +1,3 @@
-
 --[[
   Licensed under the MIT License (see LICENSE file for full details).
   Copyright (c) 2025 MrY7zz
@@ -15,17 +14,21 @@ return (function(...)
 	local realChar = args[1] or game:GetService("Players").LocalPlayer.Character or game:GetService("Players").LocalPlayer.CharacterAdded:Wait()
 	local willClone = args[2]
 	local rigType = args[3]
+	local WillTeleport = args[4]
+	local realCharCFrame = realChar.HumanoidRootPart.CFrame
 	
 	local Players = game:GetService("Players")
 	
 	if willClone then
 		local value = realChar.Archivable
-		realChar.Archivable = false
+		realChar.Archivable = true
 		fakeCharacter = realChar:Clone()
 		realChar.Archivable = value
+		fakeCharacter.HumanoidRootPart.CFrame = realCharCFrame
 		return fakeCharacter
 	else
 		fakeCharacter = Players:CreateHumanoidModelFromDescription(realChar.Humanoid:FindFirstChild("HumanoidDescription") or Instance.new("HumanoidDescription"), rigType)
+		fakeCharacter.HumanoidRootPart.CFrame = realCharCFrame
 		return fakeCharacter
 	end
 end)(...)
