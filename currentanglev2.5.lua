@@ -438,7 +438,7 @@ end
 
 local jointmapping = {
 	Neck = newcharTorso:WaitForChild("Neck"),
-	RootJoint = newChar.HumanoidRootPart:FindFirstChild("RootJoint") or newChar.HumanoidRootPart:FindFirstChild("Root Hip"),
+	RootJoint = newChar.HumanoidRootPart:FindFirstChild("RootJoint"),
 	["Left Shoulder"] = newcharTorso:WaitForChild("Left Shoulder"),
 	["Right Shoulder"] = newcharTorso:WaitForChild("Right Shoulder"),
 	["Left Hip"] = newcharTorso:WaitForChild("Left Hip"),
@@ -484,7 +484,7 @@ local function stepReanimate()
 
 		local angle = 0
 
-		if joint == "Neck" or joint == "RootJoint" or joint == "Root Hip" then
+		if joint == "Neck" or joint == "RootJoint" then
 			angle = -yaw
 		elseif joint == "Left Shoulder" or joint == "Left Hip" then
 			angle = pitch
@@ -492,7 +492,7 @@ local function stepReanimate()
 			angle = -pitch
 		end
 
-		if joint ~= "RootJoint" or joint ~= "Root Hip" then
+		if joint ~= "RootJoint" then
 			gameNewIndex(jointmapping[joint], "DesiredAngle", angle)
 			RCA6dToCFrame(jointmapping[joint], limb, newcharTorso)
 		end
