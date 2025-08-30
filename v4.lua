@@ -19,6 +19,7 @@ local supportedplaces = {
 	["81239378558719"] = true, --// Hide the body
 	["16389395869"] = true, --// a dusty trip
 	["9391468976"] = true, --// Jujutsu Shenanigans
+	["99584907198214"] = true, --// Roblox_Egor simulator
 }
 
 local newgamesandwhitelisted = {
@@ -124,6 +125,11 @@ end
 if supportedplace and supportedplaceid == "9391468976" then
 	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/warn.lua"))
 	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/jujutsushenanigans.lua"))
+	return
+end
+
+if supportedplace and supportedplaceid == "99584907198214" then
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/roblox_egor.lua"))
 	return
 end
 
