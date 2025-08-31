@@ -20,6 +20,7 @@ local supportedplaces = {
 	["16389395869"] = true, --// a dusty trip
 	["9391468976"] = true, --// Jujutsu Shenanigans
 	["99584907198214"] = true, --// Roblox_Egor simulator
+	["192800"] = true, --// Work at a Pizza Place
 }
 
 local newgamesandwhitelisted = {
@@ -130,6 +131,11 @@ end
 
 if supportedplace and supportedplaceid == "99584907198214" then
 	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/roblox_egor.lua"))
+	return
+end
+
+if supportedplace and supportedplaceid == "192800" then
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/workatapizzaplace.lua"))
 	return
 end
 
