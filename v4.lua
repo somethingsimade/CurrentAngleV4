@@ -17,7 +17,7 @@ local supportedplaces = {
 	["16647175522"] = true, --// Advanced Euphoria Ragdoll
 	["112399477218954"] = true, --// Circuit Board
 	["81239378558719"] = true, --// Hide the body
-	["16389395869"] = true, --// a dusty trip
+	["16389398622"] = true, --// a dusty trip
 	["9391468976"] = true, --// Jujutsu Shenanigans
 	["99584907198214"] = true, --// Roblox_Egor simulator
 	["192800"] = true, --// Work at a Pizza Place
@@ -100,6 +100,11 @@ end
 
 if supportedplace and supportedplaceid == "5683833663" then
 	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/RagdollEngine1/choose.lua"))
+	return
+end
+
+if supportedplace and supportedplaceid == "16389398622" then
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/adustytrip.lua"))
 	return
 end
 
