@@ -7,6 +7,9 @@
   Removing or modifying this notice may violate copyright law.
 ]]
 --// BY MrY7zz
+if not game:IsLoaded() then
+	game.Loaded:Wait()
+end
 
 local supportedplaces = {
 	["5846386835"] = true, --// RetroStudio
@@ -40,6 +43,26 @@ local newgamesandwhitelisted = {
 	["12109643"] = true, --// Fencing (whitelisted)
 	["6278451801"] = true, --// ALL glitch in roblox (whitelisted)
 }
+
+if _G["Anti-Fling"] == true then
+local Players = game:GetService('Players')
+
+local LocalPlayer = Players.LocalPlayer
+
+game:GetService('RunService').Stepped:Connect(function()
+	for i, v in ipairs(Players:GetPlayers()) do
+		if v ~= LocalPlayer and v.Character then
+			for i, b in ipairs(v.Character:GetDescendants()) do
+				if b:IsA('BasePart') then
+					b.CanCollide = false
+				end
+			end
+		end
+	end
+end)
+
+
+end
 
 local supportedplace = false
 local supportedplaceid = nil
