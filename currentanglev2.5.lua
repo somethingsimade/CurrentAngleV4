@@ -23,6 +23,8 @@ if not sethiddenproperty then
 	return
 end
 
+--// Tools
+
 local UI = (gethui and gethui()) or (cloneref and cloneref(game:GetService("CoreGui"))) or (pcall(function() return game:GetService("CoreGui").Parent end) and game:GetService("CoreGui")) or game:GetService("Players").LocalPlayer:FindFirstChildOfClass("PlayerGui")
 
 local function LoadUi(seconds)
