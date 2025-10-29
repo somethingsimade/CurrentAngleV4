@@ -322,7 +322,7 @@ end
 twait(zeropointone)
 
 if LocalPlayer.Character:FindFirstChildOfClass("Humanoid").RigType ~= Enum.HumanoidRigType.R6 then
-	error("Script is only compatible with R6 type rigs")
+	error("R15 Rig support is currently under maintenance")
 	return
 end
 
