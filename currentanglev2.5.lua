@@ -522,7 +522,7 @@ local currentheight = workspace.FallenPartsDestroyHeight
 
 local function flinginternal(character, time)
 	if character == newChar then return end
-	local time = time or 5
+	local time = time or 2
 
 	flinging = true
 	local start = tick()
