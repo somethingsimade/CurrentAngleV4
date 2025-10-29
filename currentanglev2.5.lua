@@ -167,7 +167,7 @@ if getrawmetatable then
 			CFrameIndex = res.__index
 			CFrameMul = res.__mul
 			CFrameAdd = res.__add
-            Vector3Mul = getrawmetatable(vector3zero).__mul
+			Vector3Mul = getrawmetatable(vector3zero).__mul
 		end
 	end
 end
@@ -190,20 +190,20 @@ if not getrawmetatableworks then
 	end, function()
 		CFrameIndex = debug_info(2, "f")
 	end)
-	
+
 	xpcall(function()
 		return emptyCFrame * 9
 	end, function()
 		CFrameMul = debug_info(2, "f")
 	end)
-	
+
 	xpcall(function()
 		return emptyCFrame + 9
 	end, function()
 		CFrameAdd = debug_info(2, "f")
 	end)
 
-    xpcall(function()
+	xpcall(function()
 		return vector3zero * 9
 	end, function()
 		Vector3Mul = debug_info(2, "f")
@@ -272,6 +272,14 @@ local NaN = 0/0
 
 local dummypart = Instance.new("Part")
 
+local function getsetting(string_, default) --// Finally
+	if _G[string_] == nil then
+		return default
+	else
+		return _G[string_]
+	end
+end
+
 local GetDescendants = dummypart.GetDescendants
 local IsA = dummypart.IsA
 local Destroy = dummypart.Destroy
@@ -279,31 +287,31 @@ local Destroy = dummypart.Destroy
 local math_random = math.random
 local Vector3_new = Vector3.new
 
-local usedefaultanims = _G["Use default animations"] or false
+local usedefaultanims = getsetting("Use default animations", false)
 
-local transparency_level = _G["Fake character transparency level"] or 1
+local transparency_level = getsetting("Fake character transparency level", 1)
 
-local disablescripts = _G["Disable character scripts"] or true
+local disablescripts = getsetting("Disable character scripts", true)
 
-local fakecollisions = _G["Fake character should collide"] or true
+local fakecollisions = getsetting("Fake character should collide", false)
 
-local nametoexcludefromtransparency = _G["Names to exclude from transparency"] or {}
+local nametoexcludefromtransparency = getsetting("Names to exclude from transparency", {})
 
-local parentrealchartofakechar = _G["Parent real character to fake character"] or false
+local parentrealchartofakechar = getsetting("Parent real character to fake character", false)
 
-local respawncharacter = (function() if _G["Respawn character"] == nil then return true else return _G["Respawn character"] end end)()
+local respawncharacter = getsetting("Respawn character", true)
 
-local instantrespawn = (function() if _G["Instant respawn"] == nil then return false else return _G["Instant respawn"] end end)()
+local instantrespawn = getsetting("Instant respawn", false)
 
-local hiderootpart = (function() if _G["Hide HumanoidRootPart"] == nil then return false else return _G["Hide HumanoidRootPart"] end end)()
+local hiderootpart = getsetting("Hide HumanoidRootPart", false)
 
-local permadeathcharacter = (function() if _G["PermaDeath fake character"] == nil then return true else return _G["PermaDeath fake character"] end end)()
+local permadeathcharacter = getsetting("PermaDeath fake character", true)
 
-local r15rig = (function() if _G["R15 Reanimate"] == nil then return false else return _G["R15 Reanimate"] end end)()
+local r15rig = getsetting("R15 Reanimate", false)
 
-local clickfling = (function() if _G["Click Fling"] == nil then return false else return _G["Click Fling"] end end)()
+local clickfling = getsetting("Click Fling", false)
 
-local poscache = (function() if _G["Hide RootPart Distance"] == nil then return CFrame.new(255, 255, 0) else return _G["Hide RootPart Distance"] end end)()
+local poscache = getsetting("Hide RootPart Distance", CFrame.new(255, 255, 0))
 
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
@@ -314,8 +322,8 @@ end
 twait(zeropointone)
 
 if LocalPlayer.Character:FindFirstChildOfClass("Humanoid").RigType ~= Enum.HumanoidRigType.R6 then
-    error("Script is only compatible with R6 type rigs")
-    return
+	error("Script is only compatible with R6 type rigs")
+	return
 end
 
 local function removeAnims(character)
@@ -637,7 +645,7 @@ end
 finished = true
 
 if usedefaultanims then
-task_spawn(function()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV2/refs/heads/main/anims"))()
-end)
+	task_spawn(function()
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV2/refs/heads/main/anims"))()
+	end)
 end
