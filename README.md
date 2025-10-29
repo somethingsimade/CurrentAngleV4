@@ -1,3 +1,5 @@
+# Update: In favour of functionality, CurrentAngle v4 will shift to a script that requires more UNC and thread identity. The pros outhweight the cons.
+
 The official place where it will be hosted.
 
 ⚠️ Fling is BROKEN and will be recoded ⚠️
