@@ -558,7 +558,7 @@ local function flinginternal(character, time)
 end
 
 fling = function(character, time, yield)
-	setdestroyheight(NaN)
+	--setdestroyheight(NaN)
 	local yield = yield or false
 	if yield then
 		flinginternal(character, time)
