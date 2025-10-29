@@ -1,5 +1,7 @@
 # Update: In favour of functionality, CurrentAngle v4 will shift to a script that requires more UNC and thread identity. The pros outhweight the cons.
 
+⚠️ Warning: when using the `fling` function, setting the amount of time it will attempt to fling for to longer than 3.5 seconds can break the reanimate ⚠️
+
 The official place where it will be hosted.
 
 # Why skip to v4 and not v3?
