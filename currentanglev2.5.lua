@@ -539,10 +539,10 @@ local function flinginternal(character, time)
 				local velocity = character.HumanoidRootPart.Velocity
 				local direction = velocity.Magnitude > 1 and velocity.Unit or Vector3_new(0, 0, 0)
 				local predictedPosition = (character.PrimaryPart.CFrame or character.HumanoidRootPart.CFrame).Position + direction * math_random(5, 12)
-
-				newcharRoot.CFrame = CFrame.new(predictedPosition)
-				newcharRoot.Velocity = Vector3_new(9e7, 9e7 * 10, 9e7)
-				newcharRoot.RotVelocity = Vector3_new(9e8, 9e8, 9e8)
+				
+				newcharRoot.Velocity = Vector3_new(100, 500000, 100)
+				newcharRoot.CFrame = CFrame.new(predictedPosition) - Vector3.new(0, 1, 0)
+				--newcharRoot.RotVelocity = Vector3_new(100, 100, 100)
 			else
 				flinging = false
 				connection:Disconnect()
@@ -557,7 +557,7 @@ local function flinginternal(character, time)
 
 end
 
-getgenv().fling = function(character, time, yield)
+fling = function(character, time, yield)
 	setdestroyheight(NaN)
 	local yield = yield or false
 	if yield then
@@ -566,6 +566,8 @@ getgenv().fling = function(character, time, yield)
 		tspawn(flinginternal, character, time)
 	end
 end
+
+getgenv().fling = fling
 
 local function disableCollisions()
 	pcall(function()
