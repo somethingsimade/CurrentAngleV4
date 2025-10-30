@@ -537,7 +537,7 @@ local function flinginternal(character, time)
 		if character then
 			if character:FindFirstChild("HumanoidRootPart") then
 				local velocity = character.HumanoidRootPart.Velocity
-				if velocity.Unit.X + velocity.Unit.Y + velocity.Unit.Z >= 1000 then
+				if character.HumanoidRootPart.CFrame.Position.Y <= currentheight - 5 then
 					return
 				end
 				local direction = velocity.Magnitude > 1 and velocity.Unit or Vector3_new(0, 0, 0)
