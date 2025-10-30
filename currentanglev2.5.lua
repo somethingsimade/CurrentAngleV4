@@ -537,8 +537,14 @@ local function flinginternal(character, time)
 		if character then
 			if character:FindFirstChild("HumanoidRootPart") then
 				local velocity = character.HumanoidRootPart.Velocity
-				if character.HumanoidRootPart.CFrame.Position.Y <= currentheight - 5 then
+				if character.HumanoidRootPart.CFrame.Position.Y <= currentheight + 15 then
+					newcharRoot.CFrame = CFrame.new(255, 255, 0)
 					return
+				elseif currentheight == NaN then
+					if character.HumanoidRootPart.CFrame.Position.Y <= -500 + 15 then
+						newcharRoot.CFrame = CFrame.new(255, 255, 0)
+						return
+					end
 				end
 				local direction = velocity.Magnitude > 1 and velocity.Unit or Vector3_new(0, 0, 0)
 				local predictedPosition = (character.PrimaryPart.CFrame or character.HumanoidRootPart.CFrame).Position + direction * math_random(5, 12)
