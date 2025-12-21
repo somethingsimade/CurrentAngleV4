@@ -126,6 +126,11 @@ if supportedplace and supportedplaceid == "5683833663" then
 	return
 end
 
+if supportedplace and supportedplaceid == "5950733731" then
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/RagdollEngine1/choose.lua"))
+	return
+end
+
 if supportedplace and supportedplaceid == "16389398622" then
 	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/adustytrip.lua"))
 	return
