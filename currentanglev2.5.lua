@@ -321,10 +321,8 @@ if not LocalPlayer.Character then
 end
 twait(zeropointone)
 
-if LocalPlayer.Character:FindFirstChildOfClass("Humanoid").RigType ~= Enum.HumanoidRigType.R6 then
-	error("R15 Rig support is currently under maintenance")
-	return
-end
+local mode = LocalPlayer.Character:FindFirstChildOfClass("Humanoid").RigType
+local R15 = Enum.HumanoidRigType.R15
 
 local function removeAnims(character)
 	if character == currentfakechar then
@@ -416,7 +414,14 @@ if parentrealchartofakechar then
 	newChar.Parent = fakeChar
 end
 
-local newcharTorso = newChar:WaitForChild("Torso")
+local newcharTorso
+local newcharLowerTorso
+if mode == R15 then
+	newcharTorso = newChar:WaitForChild("UpperTorso")
+	newcharLowerTorso = newChar:WaitForChild("LowerTorso")
+else
+	newcharTorso = newChar:WaitForChild("Torso")
+end
 local fakecharTorso
 if r15rig then
 	fakecharTorso = fakeChar:WaitForChild("UpperTorso")
@@ -448,28 +453,46 @@ else
 	}
 end 
 
-local jointmapping = {
-	Neck = newcharTorso:WaitForChild("Neck"),
-	RootJoint = newChar.HumanoidRootPart:FindFirstChild("RootJoint"),
-	["Left Shoulder"] = newcharTorso:WaitForChild("Left Shoulder"),
-	["Right Shoulder"] = newcharTorso:WaitForChild("Right Shoulder"),
-	["Left Hip"] = newcharTorso:WaitForChild("Left Hip"),
-	["Right Hip"] = newcharTorso:WaitForChild("Right Hip")
-}
+local jointmapping
+
+if mode == R15 then
+	jointmapping = {
+		Neck = newChar:WaitForChild("Head"):WaitForChild("Neck"),
+		RootJoint = newChar:WaitForChild("LowerTorso"):WaitForChild("Root"),
+		["Left Shoulder"] = newChar:WaitForChild("LeftUpperArm"):WaitForChild("LeftShoulder"),
+		["Right Shoulder"] = newChar:WaitForChild("RightUpperArm"):WaitForChild("RightShoulder"),
+		["Left Hip"] = newChar:WaitForChild("LeftUpperLeg"):WaitForChild("LeftHip"),
+		["Right Hip"] = newChar:WaitForChild("RightUpperLeg"):WaitForChild("RightHip")
+	}
+else
+	jointmapping = {
+		Neck = newcharTorso:WaitForChild("Neck"),
+		RootJoint = newChar.HumanoidRootPart:FindFirstChild("RootJoint"),
+		["Left Shoulder"] = newcharTorso:WaitForChild("Left Shoulder"),
+		["Right Shoulder"] = newcharTorso:WaitForChild("Right Shoulder"),
+		["Left Hip"] = newcharTorso:WaitForChild("Left Hip"),
+		["Right Hip"] = newcharTorso:WaitForChild("Right Hip")
+	}
+end
+
 
 local Inverse = emptyCFrame.Inverse
 local ToAxisAngle = emptyCFrame.ToAxisAngle
 local ToObjectSpace = emptyCFrame.ToObjectSpace
 local ToEulerAnglesXYZ = emptyCFrame.ToEulerAnglesXYZ
 
-local function RCA6dToCFrame(Motor6D, TargetPart, ReferencePart)
-	local rel = CFrameMul(Inverse(gameIndex(ReferencePart, "CFrame")), gameIndex(TargetPart, "CFrame"))
+local function RCA6dToCFrame(Motor6D, TargetPartCF, ReferencePartCF)
+	local rel = CFrameMul(Inverse(ReferencePartCF), TargetPartCF)
 	local delta = CFrameMul(CFrameMul(Inverse(gameIndex(Motor6D, "C0")), rel), gameIndex(Motor6D, "C1"))
 	local axis, angle = ToAxisAngle(delta)
 	local newangle = Vector3Mul(axis, angle)
 	sethiddenproperty(Motor6D, 'ReplicateCurrentOffset6D', CFrameIndex(delta, "Position"))
 	sethiddenproperty(Motor6D, 'ReplicateCurrentAngle6D', newangle)
 end
+
+local ArmsOffset = CFrame.new(0, 0.4, 0)
+local LegsOffset = CFrame.new(0, 0.35, 0)
+local RootOffset = CFrame.new(0, -0.8, 0)
 
 local task_spawn = task.spawn
 local function stepReanimate()
@@ -487,11 +510,9 @@ local function stepReanimate()
 	gameNewIndex(newcharRoot, "Velocity", vector3zero)
 	gameNewIndex(newcharRoot, "RotVelocity", vector3zero)
 
-	local rootjoint = jointmapping["RootJoint"]
-	RCA6dToCFrame(rootjoint, limbmapping["RootJoint"], newcharRoot)
-
 	for joint, limb in pairs(limbmapping) do
-		local relativecframe = ToObjectSpace(limb.CFrame, gameIndex(fakecharTorso, "CFrame"))
+		local limbCF = gameIndex(limb, "CFrame")
+		local relativecframe = ToObjectSpace(limbCF, gameIndex(fakecharTorso, "CFrame"))
 		local pitch, yaw, _ = ToEulerAnglesXYZ(relativecframe)
 
 		local angle = 0
@@ -506,7 +527,26 @@ local function stepReanimate()
 
 		if joint ~= "RootJoint" then
 			gameNewIndex(jointmapping[joint], "DesiredAngle", angle)
-			RCA6dToCFrame(jointmapping[joint], limb, newcharTorso)
+
+			if mode == R15 then
+				if joint == "Neck" then
+					RCA6dToCFrame(jointmapping[joint], limbCF, newcharTorso.CFrame)
+				elseif joint == "Right Shoulder" or joint == "Left Shoulder" then
+					RCA6dToCFrame(jointmapping[joint], limbCF * ArmsOffset, newcharTorso.CFrame)
+				elseif joint == "Left Hip" or joint == "Right Hip" then
+					RCA6dToCFrame(jointmapping[joint], limbCF * LegsOffset, newcharLowerTorso.CFrame)
+				else
+					RCA6dToCFrame(jointmapping[joint], limbCF, newcharTorso.CFrame)
+				end
+
+				local rootjoint = jointmapping["RootJoint"]
+				RCA6dToCFrame(rootjoint, limbmapping["RootJoint"].CFrame * CFrame.new(0, -0.8, 0), fakecharRoot.CFrame)
+			else
+				RCA6dToCFrame(jointmapping[joint], limb, newcharTorso.CFrame)
+
+				local rootjoint = jointmapping["RootJoint"]
+				RCA6dToCFrame(rootjoint, limbmapping["RootJoint"], newcharRoot)
+			end
 		end
 	end
 	--[[end)]]
@@ -548,7 +588,7 @@ local function flinginternal(character, time)
 				end
 				local direction = velocity.Magnitude > 1 and velocity.Unit or Vector3_new(0, 0, 0)
 				local predictedPosition = (character.PrimaryPart.CFrame or character.HumanoidRootPart.CFrame).Position + direction * math_random(5, 12)
-				
+
 				newcharRoot.Velocity = Vector3_new(100, 500000, 100)
 				newcharRoot.CFrame = CFrame.new(predictedPosition) - Vector3.new(0, 1, 0)
 				--newcharRoot.RotVelocity = Vector3_new(100, 100, 100)
