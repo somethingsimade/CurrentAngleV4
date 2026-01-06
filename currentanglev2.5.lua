@@ -364,6 +364,7 @@ else
 	fakeChar.HumanoidRootPart.CFrame = originalChar.HumanoidRootPart.CFrame
 end
 fakeChar.Name = LocalPlayer.Name .. "_Fake"
+fakeChar.Humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
 local signaldiedbackend = LocalPlayer.ConnectDiedSignalBackend
 local signalkill = LocalPlayer.Kill
 
