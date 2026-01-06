@@ -289,7 +289,7 @@ local Vector3_new = Vector3.new
 
 local usedefaultanims = getsetting("Use default animations", false)
 
-local transparency_level = getsetting("Fake character transparency level", 1)
+local transparency_level = getsetting("Local character transparency level", 1) or getsetting("Fake character transparency level", 1) --// Backwards compatibility
 
 local disablescripts = getsetting("Disable character scripts", true)
 
@@ -310,6 +310,8 @@ local permadeathcharacter = getsetting("PermaDeath fake character", true)
 local r15rig = getsetting("R15 Reanimate", false)
 
 local clickfling = getsetting("Click Fling", false)
+
+local displaymode = getsetting("Client sided display mode", 1)
 
 local poscache = getsetting("Hide RootPart Distance", CFrame.new(255, 255, 0))
 
@@ -399,10 +401,20 @@ if disablescripts then
 	end)
 end
 
-for _, part in ipairs(fakeChar:GetDescendants()) do
-	if part:IsA("BasePart") or part:IsA("Decal") then
-		if not nametoexcludefromtransparency[tostring(part)] then
-			part.Transparency = transparency_level
+if displaymode == 1 then
+	for _, part in ipairs(fakeChar:GetDescendants()) do
+		if part:IsA("BasePart") or part:IsA("Decal") then
+			if not nametoexcludefromtransparency[tostring(part)] then
+				part.Transparency = transparency_level
+			end
+		end
+	end
+elseif displaymode == 2 then
+	for _, part in ipairs(newChar:GetDescendants()) do
+		if part:IsA("BasePart") or part:IsA("Decal") then
+			if not nametoexcludefromtransparency[tostring(part)] then
+				part.Transparency = transparency_level
+			end
 		end
 	end
 end
