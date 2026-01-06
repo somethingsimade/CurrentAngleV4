@@ -502,7 +502,8 @@ local function RCA6dToCFrame(Motor6D, TargetPartCF, ReferencePartCF)
 	sethiddenproperty(Motor6D, 'ReplicateCurrentAngle6D', newangle)
 end
 
-local ArmsOffset = CFrame.new(0, 0.4, 0)
+local RightArmOffset = CFrame.new(0, 0.4, 0)
+local LeftArmOffset = CFrame.new(0, 0.2, 0)
 local LegsOffset = CFrame.new(0, 0.6, 0)
 local RootOffset = CFrame.new(0, -0.8, 0)
 
@@ -543,8 +544,10 @@ local function stepReanimate()
 			if mode == R15 then
 				if joint == "Neck" then
 					RCA6dToCFrame(jointmapping[joint], limbCF, newcharTorso.CFrame)
-				elseif joint == "Right Shoulder" or joint == "Left Shoulder" then
-					RCA6dToCFrame(jointmapping[joint], limbCF * ArmsOffset, newcharTorso.CFrame)
+				elseif joint == "Right Shoulder" then
+					RCA6dToCFrame(jointmapping[joint], limbCF * RightArmOffset, newcharTorso.CFrame)
+				elseif  joint == "Left Shoulder" then
+RCA6dToCFrame(jointmapping[joint], limb.CFrame * LeftArmOffset, fakecharTorso.CFrame)
 				elseif joint == "Left Hip" or joint == "Right Hip" then
 					RCA6dToCFrame(jointmapping[joint], limbCF * LegsOffset, newcharLowerTorso.CFrame)
 				else
