@@ -1,3 +1,4 @@
+
 --[[
   Licensed under the MIT License (see LICENSE file for full details).
   Copyright (c) 2025 MrY7zz
@@ -289,7 +290,7 @@ local Vector3_new = Vector3.new
 
 local usedefaultanims = getsetting("Use default animations", false)
 
-local transparency_level = getsetting("Local character transparency level", 1) or getsetting("Fake character transparency level", 1) --// Backwards compatibility
+local transparency_level = getsetting("Fake character transparency level", 1)
 
 local disablescripts = getsetting("Disable character scripts", true)
 
@@ -311,8 +312,6 @@ local r15rig = getsetting("R15 Reanimate", false)
 
 local clickfling = getsetting("Click Fling", false)
 
-local displaymode = getsetting("Client sided display mode", 1)
-
 local poscache = getsetting("Hide RootPart Distance", CFrame.new(255, 255, 0))
 
 local LocalPlayer = game:GetService("Players").LocalPlayer
@@ -323,8 +322,10 @@ if not LocalPlayer.Character then
 end
 twait(zeropointone)
 
-local mode = LocalPlayer.Character:FindFirstChildOfClass("Humanoid").RigType
-local R15 = Enum.HumanoidRigType.R15
+if LocalPlayer.Character:FindFirstChildOfClass("Humanoid").RigType ~= Enum.HumanoidRigType.R6 then
+	error("R15 Rig support is currently under maintenance")
+	return
+end
 
 local function removeAnims(character)
 	if character == currentfakechar then
@@ -401,20 +402,10 @@ if disablescripts then
 	end)
 end
 
-if displaymode == 1 then
-	for _, part in ipairs(fakeChar:GetDescendants()) do
-		if part:IsA("BasePart") or part:IsA("Decal") then
-			if not nametoexcludefromtransparency[tostring(part)] then
-				part.Transparency = transparency_level
-			end
-		end
-	end
-elseif displaymode == 2 then
-	for _, part in ipairs(newChar:GetDescendants()) do
-		if part:IsA("BasePart") or part:IsA("Decal") then
-			if not nametoexcludefromtransparency[tostring(part)] then
-				part.Transparency = transparency_level
-			end
+for _, part in ipairs(fakeChar:GetDescendants()) do
+	if part:IsA("BasePart") or part:IsA("Decal") then
+		if not nametoexcludefromtransparency[tostring(part)] then
+			part.Transparency = transparency_level
 		end
 	end
 end
@@ -426,14 +417,7 @@ if parentrealchartofakechar then
 	newChar.Parent = fakeChar
 end
 
-local newcharTorso
-local newcharLowerTorso
-if mode == R15 then
-	newcharTorso = newChar:WaitForChild("UpperTorso")
-	newcharLowerTorso = newChar:WaitForChild("LowerTorso")
-else
-	newcharTorso = newChar:WaitForChild("Torso")
-end
+local newcharTorso = newChar:WaitForChild("Torso")
 local fakecharTorso
 if r15rig then
 	fakecharTorso = fakeChar:WaitForChild("UpperTorso")
@@ -465,47 +449,28 @@ else
 	}
 end 
 
-local jointmapping
-
-if mode == R15 then
-	jointmapping = {
-		Neck = newChar:WaitForChild("Head"):WaitForChild("Neck"),
-		RootJoint = newChar:WaitForChild("LowerTorso"):WaitForChild("Root"),
-		["Left Shoulder"] = newChar:WaitForChild("LeftUpperArm"):WaitForChild("LeftShoulder"),
-		["Right Shoulder"] = newChar:WaitForChild("RightUpperArm"):WaitForChild("RightShoulder"),
-		["Left Hip"] = newChar:WaitForChild("LeftUpperLeg"):WaitForChild("LeftHip"),
-		["Right Hip"] = newChar:WaitForChild("RightUpperLeg"):WaitForChild("RightHip")
-	}
-else
-	jointmapping = {
-		Neck = newcharTorso:WaitForChild("Neck"),
-		RootJoint = newChar.HumanoidRootPart:FindFirstChild("RootJoint"),
-		["Left Shoulder"] = newcharTorso:WaitForChild("Left Shoulder"),
-		["Right Shoulder"] = newcharTorso:WaitForChild("Right Shoulder"),
-		["Left Hip"] = newcharTorso:WaitForChild("Left Hip"),
-		["Right Hip"] = newcharTorso:WaitForChild("Right Hip")
-	}
-end
-
+local jointmapping = {
+	Neck = newcharTorso:WaitForChild("Neck"),
+	RootJoint = newChar.HumanoidRootPart:FindFirstChild("RootJoint"),
+	["Left Shoulder"] = newcharTorso:WaitForChild("Left Shoulder"),
+	["Right Shoulder"] = newcharTorso:WaitForChild("Right Shoulder"),
+	["Left Hip"] = newcharTorso:WaitForChild("Left Hip"),
+	["Right Hip"] = newcharTorso:WaitForChild("Right Hip")
+}
 
 local Inverse = emptyCFrame.Inverse
 local ToAxisAngle = emptyCFrame.ToAxisAngle
 local ToObjectSpace = emptyCFrame.ToObjectSpace
 local ToEulerAnglesXYZ = emptyCFrame.ToEulerAnglesXYZ
 
-local function RCA6dToCFrame(Motor6D, TargetPartCF, ReferencePartCF)
-	local rel = CFrameMul(Inverse(ReferencePartCF), TargetPartCF)
+local function RCA6dToCFrame(Motor6D, TargetPart, ReferencePart)
+	local rel = CFrameMul(Inverse(gameIndex(ReferencePart, "CFrame")), gameIndex(TargetPart, "CFrame"))
 	local delta = CFrameMul(CFrameMul(Inverse(gameIndex(Motor6D, "C0")), rel), gameIndex(Motor6D, "C1"))
 	local axis, angle = ToAxisAngle(delta)
 	local newangle = Vector3Mul(axis, angle)
 	sethiddenproperty(Motor6D, 'ReplicateCurrentOffset6D', CFrameIndex(delta, "Position"))
 	sethiddenproperty(Motor6D, 'ReplicateCurrentAngle6D', newangle)
 end
-
-local RightArmOffset = CFrame.new(0, 0.4, 0)
-local LeftArmOffset = CFrame.new(0, 0.2, 0)
-local LegsOffset = CFrame.new(0, 0.6, 0)
-local RootOffset = CFrame.new(0, -0.8, 0)
 
 local task_spawn = task.spawn
 local function stepReanimate()
@@ -523,9 +488,11 @@ local function stepReanimate()
 	gameNewIndex(newcharRoot, "Velocity", vector3zero)
 	gameNewIndex(newcharRoot, "RotVelocity", vector3zero)
 
+	local rootjoint = jointmapping["RootJoint"]
+	RCA6dToCFrame(rootjoint, limbmapping["RootJoint"], newcharRoot)
+
 	for joint, limb in pairs(limbmapping) do
-		local limbCF = gameIndex(limb, "CFrame")
-		local relativecframe = ToObjectSpace(limbCF, gameIndex(fakecharTorso, "CFrame"))
+		local relativecframe = ToObjectSpace(limb.CFrame, gameIndex(fakecharTorso, "CFrame"))
 		local pitch, yaw, _ = ToEulerAnglesXYZ(relativecframe)
 
 		local angle = 0
@@ -540,28 +507,7 @@ local function stepReanimate()
 
 		if joint ~= "RootJoint" then
 			gameNewIndex(jointmapping[joint], "DesiredAngle", angle)
-
-			if mode == R15 then
-				if joint == "Neck" then
-					RCA6dToCFrame(jointmapping[joint], limbCF, newcharTorso.CFrame)
-				elseif joint == "Right Shoulder" then
-					RCA6dToCFrame(jointmapping[joint], limbCF * RightArmOffset, newcharTorso.CFrame)
-				elseif  joint == "Left Shoulder" then
-RCA6dToCFrame(jointmapping[joint], limb.CFrame * LeftArmOffset, fakecharTorso.CFrame)
-				elseif joint == "Left Hip" or joint == "Right Hip" then
-					RCA6dToCFrame(jointmapping[joint], limbCF * LegsOffset, newcharLowerTorso.CFrame)
-				else
-					RCA6dToCFrame(jointmapping[joint], limbCF, newcharTorso.CFrame)
-				end
-
-				local rootjoint = jointmapping["RootJoint"]
-				RCA6dToCFrame(rootjoint, limbmapping["RootJoint"].CFrame * CFrame.new(0, -0.8, 0), fakecharRoot.CFrame)
-			else
-				RCA6dToCFrame(jointmapping[joint], limb, newcharTorso.CFrame)
-
-				local rootjoint = jointmapping["RootJoint"]
-				RCA6dToCFrame(rootjoint, limbmapping["RootJoint"], newcharRoot)
-			end
+			RCA6dToCFrame(jointmapping[joint], limb, newcharTorso)
 		end
 	end
 	--[[end)]]
@@ -603,7 +549,7 @@ local function flinginternal(character, time)
 				end
 				local direction = velocity.Magnitude > 1 and velocity.Unit or Vector3_new(0, 0, 0)
 				local predictedPosition = (character.PrimaryPart.CFrame or character.HumanoidRootPart.CFrame).Position + direction * math_random(5, 12)
-
+				
 				newcharRoot.Velocity = Vector3_new(100, 500000, 100)
 				newcharRoot.CFrame = CFrame.new(predictedPosition) - Vector3.new(0, 1, 0)
 				--newcharRoot.RotVelocity = Vector3_new(100, 100, 100)
