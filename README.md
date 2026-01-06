@@ -119,3 +119,22 @@ repeat task.wait() until finished
 
 -- you can put your converted script under here
 ```
+
+# Settings that I use (currentangle v4)
+```lua
+settings["Use default animations"] = true
+settings["Fake character transparency level"] = 1
+settings["Disable character scripts"] = true
+settings["Fake character should collide"] = true
+settings["Parent real character to fake character"] = false
+settings["Respawn character"] = true
+settings["Instant respawn"] = true
+settings["Hide HumanoidRootPart"] = true
+settings["PermaDeath fake character"] = true
+settings["R15 Reanimate"] = false
+settings["Click Fling"] = false
+settings["Anti-Fling"] = true
+settings["Hide RootPart Distance"] = CFrame.new(255, 255, 0)
+settings["Client sided display mode"] = 2
+settings["Fallback prompt"] = false
+```
