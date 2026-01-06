@@ -325,6 +325,10 @@ twait(zeropointone)
 
 local mode = LocalPlayer.Character:FindFirstChildOfClass("Humanoid").RigType
 local R15 = Enum.HumanoidRigType.R15
+if mode == R15 and hiderootpart == true then
+	warn("Hide RootPart is not supported with R15, disabling")
+	hiderootpart = false
+end
 
 local function removeAnims(character)
 	if character == currentfakechar then
