@@ -402,24 +402,6 @@ if disablescripts then
 	end)
 end
 
-if displaymode == 1 then
-	for _, part in ipairs(fakeChar:GetDescendants()) do
-		if part:IsA("BasePart") or part:IsA("Decal") then
-			if not nametoexcludefromtransparency[tostring(part)] then
-				part.Transparency = transparency_level
-			end
-		end
-	end
-elseif displaymode == 2 then
-	for _, part in ipairs(newChar:GetDescendants()) do
-		if part:IsA("BasePart") or part:IsA("Decal") then
-			if not nametoexcludefromtransparency[tostring(part)] then
-				part.Transparency = transparency_level
-			end
-		end
-	end
-end
-
 twait(0.4)
 
 LocalPlayer.Character = fakeChar
@@ -714,6 +696,24 @@ if clickfling then
 
 		fling(character, 2.3, true)
 	end)
+end
+
+if displaymode == 1 then
+	for _, part in ipairs(fakeChar:GetDescendants()) do
+		if part:IsA("BasePart") or part:IsA("Decal") then
+			if not nametoexcludefromtransparency[tostring(part)] then
+				part.Transparency = transparency_level
+			end
+		end
+	end
+elseif displaymode == 2 then
+	for _, part in ipairs(newChar:GetDescendants()) do
+		if part:IsA("BasePart") or part:IsA("Decal") then
+			if not nametoexcludefromtransparency[tostring(part)] then
+				part.Transparency = transparency_level
+			end
+		end
+	end
 end
 
 finished = true
