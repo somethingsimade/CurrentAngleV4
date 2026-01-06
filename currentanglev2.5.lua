@@ -491,7 +491,7 @@ local function RCA6dToCFrame(Motor6D, TargetPartCF, ReferencePartCF)
 end
 
 local ArmsOffset = CFrame.new(0, 0.4, 0)
-local LegsOffset = CFrame.new(0, 0.35, 0)
+local LegsOffset = CFrame.new(0, 0.6, 0)
 local RootOffset = CFrame.new(0, -0.8, 0)
 
 local task_spawn = task.spawn
