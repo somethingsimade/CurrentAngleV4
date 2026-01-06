@@ -97,7 +97,7 @@ local function loadstr(str)
 	return loadstring(str)()
 end
 
-if not supportedplace then
+if not supportedplace and _G["Fallback prompt"] == true then
 	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/gamefallback.lua"))
 	return
 end
