@@ -44,6 +44,7 @@ settings["Hide RootPart Distance"] = CFrame.new(255, 255, 0)
 settings["Allow tool equipping"] = false --// Placeholder
 settings["Client sided display mode"] = 1 --// If you will see the fake character, or the real character, 1 = real character (default), 2 = fake character
 settings["Fallback prompt"] = true --// Enable or disable the annoying fallback prompt if your game is not whitelisted
+settings["Respawn mode"] = "ServerBreakJoints"
 
 settings["Names to exclude from transparency"] = {
     --[[ example:
