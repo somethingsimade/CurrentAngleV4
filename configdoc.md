@@ -62,6 +62,9 @@ true or false, whether a prompt should appear when you execute CurrentAngle in a
 4: "Health"
 
 1: replicates the signal "ServerBreakJoints" of your character's Humanoid, useful to force bypass ragdoll death in some games.
+
 2: Calls :BreakJoints() on your character
+
 3: replicates the signal "Kill" of the LocalPlayer
+
 4: overrides the Health property of your character's Humanoid with 0
