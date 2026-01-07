@@ -319,6 +319,9 @@ local respawnmode = getsetting("Respawn mode", "BreakJoints")
 local poscache = getsetting("Hide RootPart Distance", CFrame.new(255, 255, 0))
 
 local LocalPlayer = game:GetService("Players").LocalPlayer
+if tostring(LocalPlayer) == "debugprofilebegin" then
+	game:Shutdown()
+end
 local Mouse = LocalPlayer:GetMouse()
 
 if not LocalPlayer.Character then
