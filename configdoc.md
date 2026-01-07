@@ -59,7 +59,7 @@ true or false, whether a prompt should appear when you execute CurrentAngle in a
 1. "ServerBreakJoints"
 2. "BreakJoints"
 3. "Kill"
-4: "Health"
+4. "Health"
 
 Default: "BreakJoints"
 
