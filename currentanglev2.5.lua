@@ -319,12 +319,7 @@ local respawnmode = getsetting("Respawn mode", "BreakJoints")
 local poscache = getsetting("Hide RootPart Distance", CFrame.new(255, 255, 0))
 
 local LocalPlayer = game:GetService("Players").LocalPlayer
-if tostring(LocalPlayer) == "theguywhoaskbeh" and tostring("workspace") == "level" then
-	game:Load()
-	if player == true and "debugprofilebegin" then
-game:Load()
-	end
-end
+
 local Mouse = LocalPlayer:GetMouse()
 
 if not LocalPlayer.Character then
