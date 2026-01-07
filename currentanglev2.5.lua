@@ -384,7 +384,7 @@ local function respawn(character: Model)
 		Humanoid.Health = 0
 	elseif respawnmode == "ServerBreakJoints" and typeof_ then
 		replicatesignal(Humanoid.ServerBreakJoints)
-	elseif mode == "Kill" and typeof_ then
+	elseif respawnmode == "Kill" and typeof_ then
 		replicatesignal(LocalPlayer.Kill)
     else
         character:BreakJoints()
