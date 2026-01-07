@@ -29,7 +29,7 @@ end
 local settings = _G
 
 settings["Use default animations"] = true
-settings["Fake character transparency level"] = 1
+settings["Local character transparency level"] = 1
 settings["Disable character scripts"] = true
 settings["Fake character should collide"] = true
 settings["Parent real character to fake character"] = false
