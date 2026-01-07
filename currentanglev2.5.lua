@@ -314,7 +314,7 @@ local clickfling = getsetting("Click Fling", false)
 
 local displaymode = getsetting("Client sided display mode", 1)
 
-local respawnmode = getsetting("Respawn mode", "Kill")
+local respawnmode = getsetting("Respawn mode", "BreakJoints")
 
 local poscache = getsetting("Hide RootPart Distance", CFrame.new(255, 255, 0))
 
