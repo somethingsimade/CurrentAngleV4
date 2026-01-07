@@ -61,7 +61,7 @@ true or false, whether a prompt should appear when you execute CurrentAngle in a
 3. "Kill"
 4: "Health"
 
-Default: "Kill"
+Default: "BreakJoints"
 
 1: Calls replicatesignal on the signal "ServerBreakJoints" of your character's Humanoid, useful to force bypass ragdoll death in some games.
 
