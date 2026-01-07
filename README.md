@@ -73,9 +73,10 @@ Just enter a game, our script will automatically detect if the game you are in i
 # Can't find your game in the list?
 Open an [issue](https://github.com/somethingsimade/CurrentAngleV4/issues) and request the game. Note that games that modify the character too much will be much harder to port, unless it contains a custom mechanic that allows limb movement (e.g ragdolling)
 
-# Older version (currentangle v2)
+# Older version (currentangle v2/v2.5)
 ```lua
 -- SETTINGS --
+local oldsettings = settings --// This is a default Roblox function, to prevent it from breaking we replace it with the function again at the end
 local settings = _G
 
 --// Check configdoc.md for settings documentation
@@ -110,6 +111,8 @@ end)
 
 repeat task.wait() until finished
 
+settings = oldsettings
+
 -- USAGE: getgenv().fling(character, time, yield) if you dont have getgenv: _G.fling(character, time, yield)
 -- or just fling(character, time, yield)
 
@@ -138,4 +141,5 @@ settings["Anti-Fling"] = true
 settings["Hide RootPart Distance"] = CFrame.new(255, 255, 0)
 settings["Client sided display mode"] = 2
 settings["Fallback prompt"] = false
+settings["Respawn mode"] = "Kill"
 ```
