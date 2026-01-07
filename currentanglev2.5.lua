@@ -1,3 +1,4 @@
+--!native
 --[[
   Licensed under the MIT License (see LICENSE file for full details).
   Copyright (c) 2025 MrY7zz
@@ -313,6 +314,8 @@ local clickfling = getsetting("Click Fling", false)
 
 local displaymode = getsetting("Client sided display mode", 1)
 
+local respawnmode = getsetting("Respawn mode", "Kill")
+
 local poscache = getsetting("Hide RootPart Distance", CFrame.new(255, 255, 0))
 
 local LocalPlayer = game:GetService("Players").LocalPlayer
@@ -372,19 +375,33 @@ fakeChar.Humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
 local signaldiedbackend = LocalPlayer.ConnectDiedSignalBackend
 local signalkill = LocalPlayer.Kill
 
+local function respawn(character: Model)
+	local Humanoid = character:WaitForChild("Humanoid")
+	local typeof_ = typeof(replicatesignal) == "function"
+	if respawnmode == "BreakJoints" then
+		character:BreakJoints()
+	elseif respawnmode == "Health" then
+		Humanoid.Health = 0
+	elseif respawnmode == "ServerBreakJoints" and typeof_ then
+		replicatesignal(Humanoid.ServerBreakJoints)
+	elseif mode == "Kill" and typeof_ then
+		replicatesignal(LocalPlayer.Kill)
+	end
+end
+
 if respawncharacter then
 	LoadUi(game:GetService("Players").RespawnTime)
 	if instantrespawn then
 		if replicatesignal then
 			replicatesignal(signaldiedbackend)
 			twait(game:GetService("Players").RespawnTime - 0.05)
-			replicatesignal(signalkill)
+			respawn(originalChar)
 			LocalPlayer.CharacterAdded:Wait()
 			fakeChar.Parent = workspace
 			currentfakechar = fakeChar
 		end
 	else
-		originalChar:BreakJoints()
+		respawn(originalChar)
 		LocalPlayer.CharacterAdded:Wait()
 		fakeChar.Parent = workspace
 		currentfakechar = fakeChar
@@ -524,13 +541,13 @@ local function stepReanimate()
 			angle = -pitch
 		end
 
-if mode == R15 then
-				local rootjoint = jointmapping["RootJoint"]
-				RCA6dToCFrame(rootjoint, limbmapping["RootJoint"].CFrame * CFrame.new(0, -0.8, 0), fakecharRoot.CFrame)
-else
-				local rootjoint = jointmapping["RootJoint"]
-				RCA6dToCFrame(rootjoint, limbmapping["RootJoint"].CFrame, newcharRoot.CFrame)
-end
+		if mode == R15 then
+			local rootjoint = jointmapping["RootJoint"]
+			RCA6dToCFrame(rootjoint, limbmapping["RootJoint"].CFrame * CFrame.new(0, -0.8, 0), fakecharRoot.CFrame)
+		else
+			local rootjoint = jointmapping["RootJoint"]
+			RCA6dToCFrame(rootjoint, limbmapping["RootJoint"].CFrame, newcharRoot.CFrame)
+		end
 
 		if joint ~= "RootJoint" then
 			gameNewIndex(jointmapping[joint], "DesiredAngle", angle)
@@ -541,7 +558,7 @@ end
 				elseif joint == "Right Shoulder" then
 					RCA6dToCFrame(jointmapping[joint], gameIndex(limb, "CFrame") * RightArmOffset, newcharTorso.CFrame)
 				elseif  joint == "Left Shoulder" then
-RCA6dToCFrame(jointmapping[joint], limb.CFrame * LeftArmOffset, fakecharTorso.CFrame)
+					RCA6dToCFrame(jointmapping[joint], limb.CFrame * LeftArmOffset, fakecharTorso.CFrame)
 				elseif joint == "Left Hip" or joint == "Right Hip" then
 					RCA6dToCFrame(jointmapping[joint], gameIndex(limb, "CFrame") * LegsOffset, newcharLowerTorso.CFrame)
 				else
