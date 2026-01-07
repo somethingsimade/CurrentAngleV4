@@ -1,8 +1,9 @@
 ### "Use default animations"
 When true, enables the default animations on the fake character
 
-### "Fake character transparency level"
-Level of transparency of the fake character
+### "Local character transparency level"
+Level of transparency of the character
+Affected by "Client sided display mode", the transparency will be set to the opposite of the mode you chose
 
 ### "Disable character scripts"
 Disable the (fake) character scripts when turned on
