@@ -377,7 +377,7 @@ local signalkill = LocalPlayer.Kill
 
 local function respawn(character: Model)
 	local Humanoid = character:WaitForChild("Humanoid")
-	local typeof_ = typeof(replicatesignal) == "function"
+
 	if respawnmode == "BreakJoints" then
 		character:BreakJoints()
 	elseif respawnmode == "Health" then
@@ -386,6 +386,8 @@ local function respawn(character: Model)
 		replicatesignal(Humanoid.ServerBreakJoints)
 	elseif mode == "Kill" and typeof_ then
 		replicatesignal(LocalPlayer.Kill)
+    else
+        character:BreakJoints()
 	end
 end
 
