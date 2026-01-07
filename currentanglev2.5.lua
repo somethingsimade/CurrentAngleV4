@@ -376,6 +376,7 @@ local signaldiedbackend = LocalPlayer.ConnectDiedSignalBackend
 local signalkill = LocalPlayer.Kill
 
 local function respawn(character: Model)
+	local typeof_ = typeof(replicatesignal) == "function"
 	local Humanoid = character:WaitForChild("Humanoid")
 
 	if respawnmode == "BreakJoints" then
