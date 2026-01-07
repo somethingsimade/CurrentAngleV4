@@ -26,6 +26,7 @@ end
 
 --// Below are the settings
 -- SETTINGS --
+local oldsettings = settings --// This is a default Roblox function, to prevent it from breaking we replace it with the function again at the end
 local settings = _G
 
 settings["Use default animations"] = true
@@ -53,6 +54,8 @@ settings["Names to exclude from transparency"] = {
     ]]
 }
 --// Settings end
+
+settings = oldsettings
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/v4.lua"))()
 ```
