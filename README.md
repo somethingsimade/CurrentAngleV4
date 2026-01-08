@@ -76,7 +76,9 @@ Just enter a game, our script will automatically detect if the game you are in i
 # Can't find your game in the list?
 Open an [issue](https://github.com/somethingsimade/CurrentAngleV4/issues) and request the game. Note that games that modify the character too much will be much harder to port, unless it contains a custom mechanic that allows limb movement (e.g ragdolling)
 
-# Older version (currentangle v2/v2.5)
+# Older versions
+
+## Currentangle v2/v2.5
 ```lua
 -- SETTINGS --
 local oldsettings = settings --// This is a default Roblox function, to prevent it from breaking we replace it with the function again at the end
@@ -125,6 +127,54 @@ settings = oldsettings
 -- yield is if the fling function will yield
 
 -- you can put your converted script under here
+```
+
+## CurrentAngle v1 (first version)
+```lua
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+-- SETTINGS --
+local settings = _G
+
+settings["Use default animations"] = true
+settings["Fake character transparency level"] = 1 -- 0 to disable
+settings["Disable character scripts"] = true
+settings["Fake character should collide"] = true
+settings["Parent real character to fake character"] = false
+settings["Respawn character"] = true --[[ only should be disabled if
+your character havent played ANY animations, otherwise it breaks the reanimate ]]
+settings["Instant respawn"] = false --[[ Instant respawns the
+character, it will still wait the respawn time, but your character wont be dead.
+Requires: replicatesignal function
+Enable if you want the feature
+]]
+
+settings["Names to exclude from transparency"] = {
+    --[[ example:
+    ["HumanoidRootPart"] = true,
+    ["Left Arm"] = true
+    ]]
+}
+(function() if getgenv then return getgenv() else return _G end end)().fling = nil
+local finished = false
+
+task.spawn(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/currentangle-reanimate/refs/heads/main/main"))()
+end)
+
+repeat task.wait() until finished
+
+-- USAGE: getgenv().fling(character, time, yield) if you dont have getgenv: _G.fling(character, time, yield)
+-- or just fling(character, time, yield)
+
+-- time is for how much time in seconds it will fling
+-- the character
+
+-- yield is if the fling function will yield
+
+-- you can put your converted script under here
+
 ```
 
 # Settings that I use (currentangle v4)
