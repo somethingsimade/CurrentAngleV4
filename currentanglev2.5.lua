@@ -744,7 +744,10 @@ end
 finished = true
 
 if usedefaultanims then
-	task_spawn(function()
+	if r15rig then
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV2/refs/heads/main/r15anim"))()
+	else
 		loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV2/refs/heads/main/anims"))()
-	end)
+	end
 end
+
