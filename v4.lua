@@ -42,6 +42,7 @@ local newgamesandwhitelisted = {
 	--// Whitelisted:
 	["12109643"] = true, --// Fencing (whitelisted)
 	["6278451801"] = true, --// ALL glitch in roblox (whitelisted)
+	["6031035699"] = true, --// rememed meme game (whitelisted)
 }
 
 if _G["Anti-Fling"] == true then
