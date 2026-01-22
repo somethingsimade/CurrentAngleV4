@@ -1,6 +1,6 @@
 --[[
   Licensed under the MIT License (see LICENSE file for full details).
-  Copyright (c) 2025 MrY7zz
+  Copyright (c) 2026 MrY7zz
 
   LEGAL NOTICE:
   You are REQUIRED to retain this license header under the terms of the MIT License.
