@@ -410,6 +410,9 @@ if respawncharacter then
 		fakeChar.Parent = workspace
 		currentfakechar = fakeChar
 	end
+else
+	fakeChar.Parent = workspace
+	currentfakechar = fakeChar
 end
 
 twait(zeropointone)
