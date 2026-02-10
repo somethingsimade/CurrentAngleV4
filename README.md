@@ -1,4 +1,4 @@
-# Update: In favour of functionality, CurrentAngle v4 will shift to a script that requires more UNC and thread identity. The pros outhweight the cons.
+# Update: Rest in peace instant respawn, February 2025 - February 2026
 
 ⚠️ Warning: when using the `fling` function, setting the amount of time it will attempt to fling for to longer than 3.5 seconds can break the reanimate ⚠️
 
@@ -35,7 +35,7 @@ settings["Disable character scripts"] = true
 settings["Fake character should collide"] = true
 settings["Parent real character to fake character"] = false
 settings["Respawn character"] = true
-settings["Instant respawn"] = false
+--//settings["Instant respawn"] = false // Patched by roblox
 settings["Hide HumanoidRootPart"] = false
 settings["PermaDeath fake character"] = true
 settings["R15 Reanimate"] = false
@@ -92,7 +92,7 @@ settings["Disable character scripts"] = true
 settings["Fake character should collide"] = true
 settings["Parent real character to fake character"] = false
 settings["Respawn character"] = true
-settings["Instant respawn"] = false
+--//settings["Instant respawn"] = false // Patched by roblox
 
 settings["Hide HumanoidRootPart"] = false
 settings["PermaDeath fake character"] = true
@@ -144,7 +144,10 @@ settings["Fake character should collide"] = true
 settings["Parent real character to fake character"] = false
 settings["Respawn character"] = true --[[ only should be disabled if
 your character havent played ANY animations, otherwise it breaks the reanimate ]]
-settings["Instant respawn"] = false --[[ Instant respawns the
+--settings["Instant respawn"] = false --[[
+*PATCHED*
+
+Instant respawns the
 character, it will still wait the respawn time, but your character wont be dead.
 Requires: replicatesignal function
 Enable if you want the feature
@@ -185,7 +188,6 @@ settings["Disable character scripts"] = true
 settings["Fake character should collide"] = true
 settings["Parent real character to fake character"] = false
 settings["Respawn character"] = true
-settings["Instant respawn"] = true
 settings["Hide HumanoidRootPart"] = true
 settings["PermaDeath fake character"] = true
 settings["R15 Reanimate"] = false
