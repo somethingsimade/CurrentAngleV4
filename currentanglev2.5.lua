@@ -373,7 +373,7 @@ else
 end
 fakeChar.Name = LocalPlayer.Name .. "_Fake"
 fakeChar.Humanoid.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
-local signaldiedbackend = LocalPlayer.ConnectDiedSignalBackend
+--local signaldiedbackend = LocalPlayer.ConnectDiedSignalBackend
 local signalkill = LocalPlayer.Kill
 
 local function respawn(character: Model)
@@ -395,7 +395,7 @@ end
 
 if respawncharacter then
 	LoadUi(game:GetService("Players").RespawnTime)
-	if instantrespawn then
+	--[[if instantrespawn then // Roblox patched it, CurrentAngle is next
 		if replicatesignal then
 			replicatesignal(signaldiedbackend)
 			twait(game:GetService("Players").RespawnTime - 0.05)
@@ -404,12 +404,11 @@ if respawncharacter then
 			fakeChar.Parent = workspace
 			currentfakechar = fakeChar
 		end
-	else
+	else]]
 		respawn(originalChar)
 		LocalPlayer.CharacterAdded:Wait()
 		fakeChar.Parent = workspace
 		currentfakechar = fakeChar
-	end
 else
 	fakeChar.Parent = workspace
 	currentfakechar = fakeChar
