@@ -395,6 +395,7 @@ end
 
 if respawncharacter then
 	LoadUi(game:GetService("Players").RespawnTime)
+	type 'shi'
 	--[[if instantrespawn then // Roblox patched it, CurrentAngle is next
 		if replicatesignal then
 			replicatesignal(signaldiedbackend)
