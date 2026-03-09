@@ -36,7 +36,7 @@ local newgamesandwhitelisted = {
 	["233727153"] = true, --// Piano Keyboard v1.1 ("might work i tested it like a lot")
 	["1662219031"] = true, --// Life in Paradies 
 	["6441847031"] = true, --// Chaos [Event] ("Might Work sometimes")
-	["17574618959"] = true, --// Just a Baseplate ("Might work but sometimes some people cant see the animation")
+	["123974602339071"] = true, --// Just a Baseplate ("Might work but sometimes some people cant see the animation") // fixed place id by xyris_relay4
 	["4065093137"] = true, --// Eat Sand ("I added it because it works and why not ")
 
 	--// Whitelisted:
