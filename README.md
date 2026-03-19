@@ -1,3 +1,4 @@
+# Spread awareness against mandatory age verification. 
 # Update: Rest in peace instant respawn, February 2025 - February 2026
 
 ⚠️ Warning: when using the `fling` function, setting the amount of time it will attempt to fling for to longer than 3.5 seconds can break the reanimate ⚠️
