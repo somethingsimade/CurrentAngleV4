@@ -24,6 +24,7 @@ local supportedplaces = {
 	["9391468976"] = true, --// Jujutsu Shenanigans
 	["99584907198214"] = true, --// Roblox_Egor simulator
 	["192800"] = true, --// Work at a Pizza Place
+	["77592237330050"] = true --// French Com Voice Chat
 }
 
 local newgamesandwhitelisted = {
