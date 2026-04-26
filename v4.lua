@@ -13,6 +13,7 @@ end
 
 local supportedplaces = {
 	["5846386835"] = true, --// RetroStudio
+	["5950733731"] = true, --// (One of the ragdolls)
 	["654732683"] = true, --// Car Crushers 2
 --//	["6884319169"] = true, --// MIC UP  // it's dead?
 	["16991287194"] = true, --// something evil will happen
@@ -174,6 +175,11 @@ end
 
 if supportedplace and supportedplaceid == "192800" then
 	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/workatapizzaplace.lua"))
+	return
+end
+
+if supportedplace and supportedplaceid == "77592237330050" then
+	loadstr(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/frenchcomvoicechat.lua"))
 	return
 end
 
